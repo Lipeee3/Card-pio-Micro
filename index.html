@@ -1,358 +1,642 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cardápio Eventos - Microsoft</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://unpkg.com/imask"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
-<script>
-tailwind.config = {
-theme: {
-extend: {
-colors: {
-primary: '#107C10',
-secondary: '#E6F1E6'
-},
-borderRadius: {
-'none': '0px',
-'sm': '4px',
-DEFAULT: '8px',
-'md': '12px',
-'lg': '16px',
-'xl': '20px',
-'2xl': '24px',
-'3xl': '32px',
-'full': '9999px',
-'button': '8px'
-}
-}
-}
-}
-</script>
-<style>
-:where([class^="ri-"])::before { content: "\f3c2"; }
-.tab-active { background-color: #107C10; color: white; }
-.modal { display: none; }
-.modal.active { display: flex; }
-</style>
-</head>
-<body class="bg-white min-h-screen">
-<nav class="fixed top-0 w-full bg-white shadow-sm z-50">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="flex justify-between h-16">
-<div class="flex items-center">
-<span class="text-primary text-2xl font-['Pacifico']">Cardápio Eventos</span>
-</div>
-<div class="flex items-center space-x-4">
-<button id="loginBtn" class="text-gray-600 hover:text-primary cursor-pointer" onclick="toggleModal('loginModal')">
-<div class="w-6 h-6 flex items-center justify-center">
-<i class="ri-user-line"></i>
-</div>
-</button>
-<button id="cartBtn" class="text-gray-600 hover:text-primary cursor-pointer" onclick="toggleModal('cartModal')">
-<div class="w-6 h-6 flex items-center justify-center relative">
-<i class="ri-shopping-cart-line"></i>
-<span id="cartCount" class="absolute -top-2 -right-2 bg-primary text-white text-xs rounded-full w-4 h-4 flex items-center justify-center hidden">0</span>
-</div>
-</button>
-</div>
-</div>
-</div>
-</nav>
-<main class="pt-20 pb-16 px-4 max-w-7xl mx-auto">
-<div class="mb-8">
-<div class="relative">
-<input type="text" placeholder="Pesquisar eventos..." class="w-full px-4 py-2 rounded-full border border-gray-200 focus:outline-none focus:border-primary">
-<div class="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center">
-<i class="ri-search-line text-gray-400"></i>
-</div>
-</div>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-<div class="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer hover:shadow-md transition-shadow">
-<img src="https://public.readdy.ai/ai/img_res/55eaadf365aeff4129df0acbb3149b0c.jpg" class="w-full h-48 object-cover" alt="Evento Corporativo">
-<div class="p-4">
-<h3 class="text-lg font-semibold mb-2">Conferência Anual de Tecnologia</h3>
-<p class="text-sm text-gray-600 mb-2">15 de Março, 2025 • Centro de Convenções</p>
-<button onclick="showMenu(this)" class="w-full bg-primary text-white py-2 px-4 rounded-button hover:bg-opacity-90 transition-colors">Ver Cardápio</button>
-</div>
-</div>
-<div class="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer hover:shadow-md transition-shadow">
-<img src="https://public.readdy.ai/ai/img_res/2d7fb412fd9f5d4e1eb6169773836ba9.jpg" onclick="showEventDetails(this)" class="w-full h-48 object-cover cursor-pointer" alt="Casamento">
-<div class="p-4">
-<h3 class="text-lg font-semibold mb-2">Casamento Silva & Santos</h3>
-<p class="text-sm text-gray-600 mb-2">20 de Março, 2025 • Villa Verde</p>
-<button onclick="showMenu(this)" class="w-full bg-primary text-white py-2 px-4 rounded-button hover:bg-opacity-90 transition-colors">Ver Cardápio</button>
-</div>
-</div>
-<script>
-function showEventDetails(img) {
-const eventModal = document.createElement('div');
-eventModal.className = 'modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
-eventModal.innerHTML = `
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cardápio Eventos - Microsoft</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/imask"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#107C10",
+              secondary: "#E6F1E6",
+            },
+            borderRadius: {
+              none: "0px",
+              sm: "4px",
+              DEFAULT: "8px",
+              md: "12px",
+              lg: "16px",
+              xl: "20px",
+              "2xl": "24px",
+              "3xl": "32px",
+              full: "9999px",
+              button: "8px",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      :where([class^="ri-"])::before {
+        content: "\f3c2";
+      }
+      .tab-active {
+        background-color: #107c10;
+        color: white;
+      }
+      .modal {
+        display: none;
+      }
+      .modal.active {
+        display: flex;
+      }
+    </style>
+  </head>
+  <body class="bg-white min-h-screen">
+    <nav class="fixed top-0 w-full bg-white shadow-sm z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+          <div class="flex items-center">
+            <span class="text-primary text-2xl font-['Pacifico']"
+              >Cardápio Eventos</span
+            >
+          </div>
+          <div class="flex items-center space-x-4">
+            <button
+              id="loginBtn"
+              class="text-gray-600 hover:text-primary cursor-pointer"
+              onclick="toggleModal('loginModal')"
+            >
+              <div class="w-6 h-6 flex items-center justify-center">
+                <i class="ri-user-line"></i>
+              </div>
+            </button>
+            <button
+              id="cartBtn"
+              class="text-gray-600 hover:text-primary cursor-pointer"
+              onclick="toggleModal('cartModal')"
+            >
+              <div class="w-6 h-6 flex items-center justify-center relative">
+                <i class="ri-shopping-cart-line"></i>
+                <span
+                  id="cartCount"
+                  class="absolute -top-2 -right-2 bg-primary text-white text-xs rounded-full w-4 h-4 flex items-center justify-center hidden"
+                  >0</span
+                >
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <main class="pt-20 pb-16 px-4 max-w-7xl mx-auto">
+      <div class="mb-8">
+        <div class="relative">
+          <input
+            type="text"
+            placeholder="Pesquisar eventos..."
+            class="w-full px-4 py-2 rounded-full border border-gray-200 focus:outline-none focus:border-primary"
+          />
+          <div
+            class="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center"
+          >
+            <i class="ri-search-line text-gray-400"></i>
+          </div>
+        </div>
+      </div>
+            <!-- Seção de Eventos -->
+            <section class="mb-12">
+              <h2 class="text-2xl font-bold text-gray-900 mb-6">Eventos</h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Card de Almoços -->
+                <div
+                  class="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer hover:shadow-md transition-shadow"
+                >
+                  <img
+                    src="https://public.readdy.ai/ai/img_res/55eaadf365aeff4129df0acbb3149b0c.jpg"
+                    class="w-full h-48 object-cover"
+                    alt="Evento Corporativo"
+                  />
+                  <div class="p-4">
+                    <h3 class="text-lg font-semibold mb-2">Almoços</h3>
+                    <p class="text-sm text-gray-600 mb-2">
+                      Todas nossas opções de almoço em um único lugar!
+                    </p>
+                   
+                               
+                    
+                    <button
+                      onclick="showMenu(this)"
+                      class="w-full bg-primary text-white py-2 px-4 rounded-button hover:bg-opacity-90 transition-colors"
+                    >
+                      Ver Cardápio
+                    </button>
+                  </div>
+                </div>
+      
+                <!-- Card de Coffee Break -->
+                <div
+                  class="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer hover:shadow-md transition-shadow"
+                >
+                  <img
+                    src="https://public.readdy.ai/ai/img_res/db664c6aebb158cca366e3da42aa121f.jpg"
+                    class="w-full h-48 object-cover"
+                    alt="Formatura"
+                  />
+                  <div class="p-4">
+                    <h3 class="text-lg font-semibold mb-2">Coffee Break</h3>
+                    <p class="text-sm text-gray-600 mb-2">
+                      Todas nossas opções Coffee Breaks em um único lugar! 
+                    </p>
+                    <button
+                      onclick="showMenu(this)"
+                      class="w-full bg-primary text-white py-2 px-4 rounded-button hover:bg-opacity-90 transition-colors"
+                    >
+                      Ver Cardápio
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+      <!-- Seção de Casamentos -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">Casamentos</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Card de Casamento -->
+          <div
+            class="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer hover:shadow-md transition-shadow"
+          >
+            <img
+              src="https://public.readdy.ai/ai/img_res/2d7fb412fd9f5d4e1eb6169773836ba9.jpg"
+              onclick="showEventDetails(this)"
+              class="w-full h-48 object-cover cursor-pointer"
+              alt="Casamento"
+            />
+            <div class="p-4">
+              <h3 class="text-lg font-semibold mb-2">Casamentos</h3>
+              <p class="text-sm text-gray-600 mb-2">
+                Faça seu orçamento! • Rojo Gastronomia
+              </p>
+              <button
+                onclick="showMenu(this)"
+                class="w-full bg-primary text-white py-2 px-4 rounded-button hover:bg-opacity-90 transition-colors"
+              >
+                Ver Cardápio
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <script>
+
+        function showEventDetails(img) {
+
+          const eventModal = document.createElement("div");
+
+          eventModal.className =
+
+            "modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50";
+
+          eventModal.innerHTML = `
+
 <div class="bg-white rounded-lg p-8 max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+
 <div class="flex justify-between items-center mb-6">
-<h2 class="text-2xl font-semibold text-gray-800">Casamento Silva & Santos</h2>
+
+<h2 class="text-2xl font-semibold text-gray-800">Casamentos</h2>
+
 <button onclick="this.closest('.modal').remove()" class="text-gray-400 hover:text-gray-600">
+
 <div class="w-6 h-6 flex items-center justify-center">
+
 <i class="ri-close-line"></i>
+
 </div>
+
 </button>
+
 </div>
+
 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
 <div>
+
 <div class="space-y-4">
+
 <div>
+
 <h3 class="text-lg font-medium text-gray-800 mb-2">Data e Horário</h3>
-<p class="text-gray-600">20 de Março, 2025 • 16:00 - 23:00</p>
+
+<p class="text-gray-600">Data • Horário - a combinar</p>
+
 </div>
+
 <div>
+
 <h3 class="text-lg font-medium text-gray-800 mb-2">Local</h3>
+
 <p class="text-gray-600">Villa Verde</p>
+
 <p class="text-gray-600">Rua das Flores, 1000 - Jardins</p>
+
 <p class="text-gray-600">São Paulo - SP</p>
+
 </div>
+
 <div>
+
 <h3 class="text-lg font-medium text-gray-800 mb-2">Capacidade</h3>
+
 <p class="text-gray-600">Mínimo: 100 convidados</p>
-<p class="text-gray-600">Máximo: 300 convidados</p>
+
+<p class="text-gray-600">Máximo: 1000 convidados</p>
+
 </div>
+
 <div>
+
 <h3 class="text-lg font-medium text-gray-800 mb-2">Estrutura</h3>
+
 <ul class="text-gray-600 space-y-1">
+
 <li>• Salão principal climatizado</li>
+
 <li>• Área externa para cerimônia</li>
+
 <li>• Jardim para fotos</li>
+
 <li>• Estacionamento com manobrista</li>
+
 <li>• Gerador próprio</li>
+
 <li>• Cozinha industrial completa</li>
+
 </ul>
+
 </div>
+
 </div>
+
 </div>
+
 <div class="space-y-6">
+
 <div>
-<h3 class="text-lg font-medium text-gray-800 mb-4">Galeria</h3>
+
+<h3 class="text-lg font-medium text-gray-800 mb-4">Sujestões de Decorações</h3>
+
 <div class="grid grid-cols-2 gap-4">
+
 <img src="https://public.readdy.ai/ai/img_res/58d6c9f211a2f9a36298b7915c36b126.jpg" class="w-full h-32 object-cover rounded-lg" alt="Salão">
+
 <img src="https://public.readdy.ai/ai/img_res/56aa646c0324a2dd443e772ce1d10eb2.jpg" class="w-full h-32 object-cover rounded-lg" alt="Cerimônia">
+
 <img src="https://public.readdy.ai/ai/img_res/d93dc762630a4ccf479e27acba12dbd1.jpg" class="w-full h-32 object-cover rounded-lg" alt="Jardim">
+
 <img src="https://public.readdy.ai/ai/img_res/ceb322565e0922a226caa43e2526f4a1.jpg" class="w-full h-32 object-cover rounded-lg" alt="Decoração">
+
 </div>
+
 </div>
+
 <div>
-<h3 class="text-lg font-medium text-gray-800 mb-4">Opções de Decoração</h3>
+
+<h3 class="text-lg font-medium text-gray-800 mb-4">Sujestão de Decoração</h3>
+
 <div class="space-y-3">
+
 <div class="p-4 border rounded-lg hover:border-primary transition-colors">
+
 <h4 class="font-medium text-gray-800 mb-2">Clássico Romântico</h4>
+
 <p class="text-sm text-gray-600">Decoração em tons de branco e verde com flores naturais, velas e cristais</p>
+
 </div>
+
 <div class="p-4 border rounded-lg hover:border-primary transition-colors">
+
 <h4 class="font-medium text-gray-800 mb-2">Moderno Elegante</h4>
+
 <p class="text-sm text-gray-600">Design minimalista com arranjos modernos e iluminação especial</p>
+
 </div>
+
 <div class="p-4 border rounded-lg hover:border-primary transition-colors">
+
 <h4 class="font-medium text-gray-800 mb-2">Luxo Total</h4>
+
 <p class="text-sm text-gray-600">Decoração premium com flores importadas e móveis especiais</p>
+
 </div>
+
 </div>
+
 </div>
+
 </div>
+
 </div>
+
 <div class="mt-8 flex justify-end">
+
 <button onclick="showMenu(this)" class="bg-primary text-white px-8 py-3 rounded-button hover:bg-opacity-90 transition-colors font-medium whitespace-nowrap">
+
 Ver Cardápio
+
 </button>
+
 </div>
+
 </div>
+
 `;
-document.body.appendChild(eventModal);
-eventModal.addEventListener('click', (e) => {
-if(e.target === eventModal) {
-eventModal.remove();
-}
-});
-}
-</script>
-<div class="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer hover:shadow-md transition-shadow">
-<img src="https://public.readdy.ai/ai/img_res/db664c6aebb158cca366e3da42aa121f.jpg" class="w-full h-48 object-cover" alt="Formatura">
-<div class="p-4">
-<h3 class="text-lg font-semibold mb-2">Formatura Engenharia USP</h3>
-<p class="text-sm text-gray-600 mb-2">25 de Março, 2025 • Clube Universitário</p>
-<button onclick="showMenu(this)" class="w-full bg-primary text-white py-2 px-4 rounded-button hover:bg-opacity-90 transition-colors">Ver Cardápio</button>
-</div>
-</div>
-</div>
-</main>
-<div id="loginModal" class="modal fixed inset-0 bg-black bg-opacity-50 flex hidden items-center justify-center z-50">
-<div class="bg-white rounded-lg p-8 max-w-md w-full mx-4 relative">
-<button onclick="toggleModal('loginModal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 cursor-pointer">
-<div class="w-6 h-6 flex items-center justify-center">
-<i class="ri-close-line"></i>
-</div>
-</button>
-<h2 class="text-2xl font-semibold mb-6 text-center">Entrar</h2>
-<form class="space-y-4" onsubmit="handleLogin(event)">
-<div>
-<label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-<input type="email" id="loginEmail" class="w-full px-3 py-2 border border-gray-300 rounded-button focus:outline-none focus:border-primary" required>
-</div>
-<div>
-<label class="block text-sm font-medium text-gray-700 mb-1">Senha</label>
-<div class="relative">
-<input type="password" id="loginPassword" class="w-full px-3 py-2 border border-gray-300 rounded-button focus:outline-none focus:border-primary" required>
-<button type="button" onclick="togglePasswordVisibility()" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
-<div class="w-5 h-5 flex items-center justify-center">
-<i class="ri-eye-line"></i>
-</div>
-</button>
-</div>
-</div>
-<div class="flex items-center justify-between">
-<div class="flex items-center">
-<input type="checkbox" id="rememberMe" class="h-4 w-4 text-primary border-gray-300 rounded">
-<label for="rememberMe" class="ml-2 block text-sm text-gray-700">Lembrar-me</label>
-</div>
-<a href="#" class="text-sm text-primary hover:underline" onclick="showForgotPasswordModal()">Esqueceu a senha?</a>
-</div>
-<button type="submit" class="w-full bg-primary text-white py-2 px-4 rounded-button hover:bg-opacity-90 transition-colors">Entrar</button>
-</form>
-<div class="mt-6 relative">
-<div class="absolute inset-0 flex items-center">
-<div class="w-full border-t border-gray-300"></div>
-</div>
-<div class="relative flex justify-center text-sm">
-<span class="px-2 bg-white text-gray-500">Ou continue com</span>
-</div>
-</div>
-<div class="mt-6 grid grid-cols-3 gap-3">
-<button type="button" onclick="socialLogin('google')" class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-button bg-white hover:bg-gray-50">
-<div class="w-5 h-5 flex items-center justify-center">
-<i class="ri-google-fill text-[#EA4335]"></i>
-</div>
-</button>
-<button type="button" onclick="socialLogin('facebook')" class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-button bg-white hover:bg-gray-50">
-<div class="w-5 h-5 flex items-center justify-center">
-<i class="ri-facebook-fill text-[#1877F2]"></i>
-</div>
-</button>
-<button type="button" onclick="socialLogin('apple')" class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-button bg-white hover:bg-gray-50">
-<div class="w-5 h-5 flex items-center justify-center">
-<i class="ri-apple-fill"></i>
-</div>
-</button>
-</div>
-<p class="mt-6 text-center text-sm text-gray-600">
-Não tem uma conta?
-<a href="#" class="font-medium text-primary hover:underline" onclick="showSignupModal()">
-Criar conta
-</a>
-</p>
-</div>
-</div>
-<div id="cartModal" class="modal fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-<div class="bg-white rounded-lg p-8 max-w-lg w-full mx-4 max-h-[90vh] overflow-y-auto">
-<div class="flex justify-between items-center mb-6">
-<h2 class="text-2xl font-semibold">Carrinho</h2>
-<button class="text-gray-400 hover:text-gray-600" onclick="toggleModal('cartModal')">
-<div class="w-6 h-6 flex items-center justify-center">
-<i class="ri-close-line"></i>
-</div>
-</button>
-</div>
-<div id="emptyCart" class="text-center py-8">
-<div class="w-16 h-16 mx-auto mb-4 text-gray-300">
-<i class="ri-shopping-cart-line text-5xl"></i>
-</div>
-<p class="text-gray-500">Seu carrinho está vazio</p>
-<button onclick="toggleModal('cartModal')" class="mt-4 text-primary hover:underline">Continuar comprando</button>
-</div>
-<div class="space-y-4 hidden" id="cartItems">
-</div>
-<div class="mt-6 border-t pt-4 hidden" id="cartFooter">
-<div class="flex justify-between items-center text-lg font-semibold mb-4">
-<span>Total</span>
-<span id="cartTotalAmount">R$ 0,00</span>
-</div>
-<div class="flex space-x-3">
-<button onclick="toggleModal('cartModal')" class="flex-1 border border-primary text-primary py-2 px-4 rounded-button hover:bg-primary hover:text-white transition-colors">
-Continuar Comprando
-</button>
-<button onclick="proceedToCheckout()" class="flex-1 bg-primary text-white py-2 px-4 rounded-button hover:bg-opacity-90 transition-colors">
-Finalizar Pedido
-</button>
-</div>
-</div>
-</div>
-</div>
-<div id="checkoutModal" class="modal fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-<div class="bg-white rounded-lg p-8 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
-<div class="flex justify-between items-center mb-6">
-<h2 class="text-2xl font-semibold">Checkout</h2>
-<button onclick="toggleModal('checkoutModal')" class="text-gray-400 hover:text-gray-600">
-<div class="w-6 h-6 flex items-center justify-center">
-<i class="ri-close-line"></i>
-</div>
-</button>
-</div>
-<div class="space-y-6">
-<div class="border-b pb-6">
-<h3 class="text-lg font-semibold mb-4">Resumo do Pedido</h3>
-<div id="checkoutItems" class="space-y-4">
-</div>
-<div class="flex justify-between items-center mt-4 font-semibold">
-<span>Total</span>
-<span id="checkoutTotal">R$ 0,00</span>
-</div>
-</div>
-<div class="space-y-4">
-<h3 class="text-lg font-semibold">Forma de Pagamento</h3>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-<button onclick="selectPaymentMethod('pix')" class="flex items-center justify-center space-x-3 p-4 border rounded-lg hover:border-primary transition-colors payment-method">
-<div class="w-6 h-6 flex items-center justify-center">
-<i class="ri-qr-code-line"></i>
-</div>
-<span>PIX</span>
-</button>
-<button onclick="selectPaymentMethod('credit')" class="flex items-center justify-center space-x-3 p-4 border rounded-lg hover:border-primary transition-colors payment-method">
-<div class="w-6 h-6 flex items-center justify-center">
-<i class="ri-bank-card-line"></i>
-</div>
-<span>Cartão de Crédito</span>
-</button>
-<button onclick="selectPaymentMethod('boleto')" class="flex items-center justify-center space-x-3 p-4 border rounded-lg hover:border-primary transition-colors payment-method">
-<div class="w-6 h-6 flex items-center justify-center">
-<i class="ri-bill-line"></i>
-</div>
-<span>Boleto Bancário</span>
-</button>
-<button onclick="selectPaymentMethod('transfer')" class="flex items-center justify-center space-x-3 p-4 border rounded-lg hover:border-primary transition-colors payment-method">
-<div class="w-6 h-6 flex items-center justify-center">
-<i class="ri-bank-line"></i>
-</div>
-<span>Transferência Bancária</span>
-</button>
-</div>
-</div>
-<div id="paymentDetails" class="hidden space-y-4">
-</div>
-<button onclick="confirmPayment()" class="w-full bg-primary text-white py-3 px-4 rounded-button hover:bg-opacity-90 transition-colors mt-6">
-Confirmar Pagamento
-</button>
-</div>
-</div>
-</div>
-<script>
-function showSignupModal() {
-toggleModal('loginModal');
-const signupModal = document.createElement('div');
-signupModal.className = 'modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
-signupModal.innerHTML = `
+
+          document.body.appendChild(eventModal);
+
+          eventModal.addEventListener("click", (e) => {
+
+            if (e.target === eventModal) {
+
+              eventModal.remove();
+
+            }
+
+          });
+
+        }
+
+      </script>
+
+
+    </main>
+    
+    <div
+      id="loginModal"
+      class="modal fixed inset-0 bg-black bg-opacity-50 flex hidden items-center justify-center z-50"
+    >
+      <div class="bg-white rounded-lg p-8 max-w-md w-full mx-4 relative">
+        <button
+          onclick="toggleModal('loginModal')"
+          class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 cursor-pointer"
+        >
+          <div class="w-6 h-6 flex items-center justify-center">
+            <i class="ri-close-line"></i>
+          </div>
+        </button>
+        <h2 class="text-2xl font-semibold mb-6 text-center">Entrar</h2>
+        <form class="space-y-4" onsubmit="handleLogin(event)">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1"
+              >Email</label
+            >
+            <input
+              type="email"
+              id="loginEmail"
+              class="w-full px-3 py-2 border border-gray-300 rounded-button focus:outline-none focus:border-primary"
+              required
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1"
+              >Senha</label
+            >
+            <div class="relative">
+              <input
+                type="password"
+                id="loginPassword"
+                class="w-full px-3 py-2 border border-gray-300 rounded-button focus:outline-none focus:border-primary"
+                required
+              />
+              <button
+                type="button"
+                onclick="togglePasswordVisibility()"
+                class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              >
+                <div class="w-5 h-5 flex items-center justify-center">
+                  <i class="ri-eye-line"></i>
+                </div>
+              </button>
+            </div>
+          </div>
+          <div class="flex items-center justify-between">
+            <div class="flex items-center">
+              <input
+                type="checkbox"
+                id="rememberMe"
+                class="h-4 w-4 text-primary border-gray-300 rounded"
+              />
+              <label for="rememberMe" class="ml-2 block text-sm text-gray-700"
+                >Lembrar-me</label
+              >
+            </div>
+            <a
+              href="#"
+              class="text-sm text-primary hover:underline"
+              onclick="showForgotPasswordModal()"
+              >Esqueceu a senha?</a
+            >
+          </div>
+          <button
+            type="submit"
+            class="w-full bg-primary text-white py-2 px-4 rounded-button hover:bg-opacity-90 transition-colors"
+          >
+            Entrar
+          </button>
+        </form>
+        <div class="mt-6 relative">
+          <div class="absolute inset-0 flex items-center">
+            <div class="w-full border-t border-gray-300"></div>
+          </div>
+          <div class="relative flex justify-center text-sm">
+            <span class="px-2 bg-white text-gray-500">Ou continue com</span>
+          </div>
+        </div>
+        <div class="mt-6 grid grid-cols-3 gap-3">
+          <button
+            type="button"
+            onclick="socialLogin('google')"
+            class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-button bg-white hover:bg-gray-50"
+          >
+            <div class="w-5 h-5 flex items-center justify-center">
+              <i class="ri-google-fill text-[#EA4335]"></i>
+            </div>
+          </button>
+          <button
+            type="button"
+            onclick="socialLogin('facebook')"
+            class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-button bg-white hover:bg-gray-50"
+          >
+            <div class="w-5 h-5 flex items-center justify-center">
+              <i class="ri-facebook-fill text-[#1877F2]"></i>
+            </div>
+          </button>
+          <button
+            type="button"
+            onclick="socialLogin('apple')"
+            class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-button bg-white hover:bg-gray-50"
+          >
+            <div class="w-5 h-5 flex items-center justify-center">
+              <i class="ri-apple-fill"></i>
+            </div>
+          </button>
+        </div>
+        <p class="mt-6 text-center text-sm text-gray-600">
+          Não tem uma conta?
+          <a
+            href="#"
+            class="font-medium text-primary hover:underline"
+            onclick="showSignupModal()"
+          >
+            Criar conta
+          </a>
+        </p>
+      </div>
+    </div>
+    <div
+      id="cartModal"
+      class="modal fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50"
+    >
+      <div
+        class="bg-white rounded-lg p-8 max-w-lg w-full mx-4 max-h-[90vh] overflow-y-auto"
+      >
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-2xl font-semibold">Carrinho</h2>
+          <button
+            class="text-gray-400 hover:text-gray-600"
+            onclick="toggleModal('cartModal')"
+          >
+            <div class="w-6 h-6 flex items-center justify-center">
+              <i class="ri-close-line"></i>
+            </div>
+          </button>
+        </div>
+        <div id="emptyCart" class="text-center py-8">
+          <div class="w-16 h-16 mx-auto mb-4 text-gray-300">
+            <i class="ri-shopping-cart-line text-5xl"></i>
+          </div>
+          <p class="text-gray-500">Seu carrinho está vazio</p>
+          <button
+            onclick="toggleModal('cartModal')"
+            class="mt-4 text-primary hover:underline"
+          >
+            Continuar comprando
+          </button>
+        </div>
+        <div class="space-y-4 hidden" id="cartItems"></div>
+        <div class="mt-6 border-t pt-4 hidden" id="cartFooter">
+          <div
+            class="flex justify-between items-center text-lg font-semibold mb-4"
+          >
+            <span>Total</span>
+            <span id="cartTotalAmount">R$ 0,00</span>
+          </div>
+          <div class="flex space-x-3">
+            <button
+              onclick="toggleModal('cartModal')"
+              class="flex-1 border border-primary text-primary py-2 px-4 rounded-button hover:bg-primary hover:text-white transition-colors"
+            >
+              Continuar Comprando
+            </button>
+            <button
+              onclick="proceedToCheckout()"
+              class="flex-1 bg-primary text-white py-2 px-4 rounded-button hover:bg-opacity-90 transition-colors"
+            >
+              Finalizar Pedido
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      id="checkoutModal"
+      class="modal fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50"
+    >
+      <div
+        class="bg-white rounded-lg p-8 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto"
+      >
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-2xl font-semibold">Checkout</h2>
+          <button
+            onclick="toggleModal('checkoutModal')"
+            class="text-gray-400 hover:text-gray-600"
+          >
+            <div class="w-6 h-6 flex items-center justify-center">
+              <i class="ri-close-line"></i>
+            </div>
+          </button>
+        </div>
+        <div class="space-y-6">
+          <div class="border-b pb-6">
+            <h3 class="text-lg font-semibold mb-4">Resumo do Pedido</h3>
+            <div id="checkoutItems" class="space-y-4"></div>
+            <div class="flex justify-between items-center mt-4 font-semibold">
+              <span>Total</span>
+              <span id="checkoutTotal">R$ 0,00</span>
+            </div>
+          </div>
+          <div class="space-y-4">
+            <h3 class="text-lg font-semibold">Forma de Pagamento</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <button
+                onclick="selectPaymentMethod('pix')"
+                class="flex items-center justify-center space-x-3 p-4 border rounded-lg hover:border-primary transition-colors payment-method"
+              >
+                <div class="w-6 h-6 flex items-center justify-center">
+                  <i class="ri-qr-code-line"></i>
+                </div>
+                <span>PIX</span>
+              </button>
+              <button
+                onclick="selectPaymentMethod('credit')"
+                class="flex items-center justify-center space-x-3 p-4 border rounded-lg hover:border-primary transition-colors payment-method"
+              >
+                <div class="w-6 h-6 flex items-center justify-center">
+                  <i class="ri-bank-card-line"></i>
+                </div>
+                <span>Cartão de Crédito</span>
+              </button>
+              <button
+                onclick="selectPaymentMethod('boleto')"
+                class="flex items-center justify-center space-x-3 p-4 border rounded-lg hover:border-primary transition-colors payment-method"
+              >
+                <div class="w-6 h-6 flex items-center justify-center">
+                  <i class="ri-bill-line"></i>
+                </div>
+                <span>Boleto Bancário</span>
+              </button>
+              <button
+                onclick="selectPaymentMethod('transfer')"
+                class="flex items-center justify-center space-x-3 p-4 border rounded-lg hover:border-primary transition-colors payment-method"
+              >
+                <div class="w-6 h-6 flex items-center justify-center">
+                  <i class="ri-bank-line"></i>
+                </div>
+                <span>Transferência Bancária</span>
+              </button>
+            </div>
+          </div>
+          <div id="paymentDetails" class="hidden space-y-4"></div>
+          <button
+            onclick="confirmPayment()"
+            class="w-full bg-primary text-white py-3 px-4 rounded-button hover:bg-opacity-90 transition-colors mt-6"
+          >
+            Confirmar Pagamento
+          </button>
+        </div>
+      </div>
+    </div>
+    <script>
+      function showSignupModal() {
+        toggleModal("loginModal");
+        const signupModal = document.createElement("div");
+        signupModal.className =
+          "modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50";
+        signupModal.innerHTML = `
 <div class="bg-white rounded-lg p-8 max-w-md w-full mx-4">
 <h2 class="text-2xl font-semibold mb-6 text-center">Criar Conta</h2>
 <form id="signupForm" class="space-y-4" onsubmit="handleSignup(event)">
@@ -431,40 +715,41 @@ Já tem uma conta? <a href="#" class="text-primary hover:underline" onclick="tog
 </button>
 </div>
 `;
-document.body.appendChild(signupModal);
-signupModal.addEventListener('click', (e) => {
-if(e.target === signupModal) {
-signupModal.remove();
-}
-});
-}
-function toggleAccountType(type) {
-  document.querySelectorAll('.account-type').forEach(btn => {
-    btn.classList.remove('active', 'bg-primary', 'text-white');
-    btn.classList.add('border-gray-300', 'text-gray-700');
-  });
-  
-  const selectedBtn = document.querySelector(`[data-type="${type}"]`);
-  selectedBtn.classList.add('active', 'bg-primary', 'text-white');
-  selectedBtn.classList.remove('border-gray-300', 'text-gray-700');
-  
-  if(type === 'business') {
-    document.getElementById('businessFields').classList.remove('hidden');
-    document.getElementById('personalFields').classList.add('hidden');
-    document.getElementById('cpf').removeAttribute('required');
-    document.getElementById('cnpj').setAttribute('required', '');
-  } else {
-    document.getElementById('businessFields').classList.add('hidden');
-    document.getElementById('personalFields').classList.remove('hidden');
-    document.getElementById('cpf').setAttribute('required', '');
-    document.getElementById('cnpj').removeAttribute('required');
-  }
-}
+        document.body.appendChild(signupModal);
+        signupModal.addEventListener("click", (e) => {
+          if (e.target === signupModal) {
+            signupModal.remove();
+          }
+        });
+      }
+      function toggleAccountType(type) {
+        document.querySelectorAll(".account-type").forEach((btn) => {
+          btn.classList.remove("active", "bg-primary", "text-white");
+          btn.classList.add("border-gray-300", "text-gray-700");
+        });
 
-function showTerms() {
-  const termsModal = document.createElement('div');
-  termsModal.className = 'modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
-  termsModal.innerHTML = `
+        const selectedBtn = document.querySelector(`[data-type="${type}"]`);
+        selectedBtn.classList.add("active", "bg-primary", "text-white");
+        selectedBtn.classList.remove("border-gray-300", "text-gray-700");
+
+        if (type === "business") {
+          document.getElementById("businessFields").classList.remove("hidden");
+          document.getElementById("personalFields").classList.add("hidden");
+          document.getElementById("cpf").removeAttribute("required");
+          document.getElementById("cnpj").setAttribute("required", "");
+        } else {
+          document.getElementById("businessFields").classList.add("hidden");
+          document.getElementById("personalFields").classList.remove("hidden");
+          document.getElementById("cpf").setAttribute("required", "");
+          document.getElementById("cnpj").removeAttribute("required");
+        }
+      }
+
+      function showTerms() {
+        const termsModal = document.createElement("div");
+        termsModal.className =
+          "modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50";
+        termsModal.innerHTML = `
     <div class="bg-white rounded-lg p-8 max-w-2xl w-full mx-4 max-h-[80vh] overflow-y-auto">
       <h3 class="text-xl font-semibold mb-4">Termos de Uso</h3>
       <div class="prose prose-sm">
@@ -485,13 +770,14 @@ function showTerms() {
       </div>
     </div>
   `;
-  document.body.appendChild(termsModal);
-}
+        document.body.appendChild(termsModal);
+      }
 
-function showPrivacyPolicy() {
-  const privacyModal = document.createElement('div');
-  privacyModal.className = 'modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
-  privacyModal.innerHTML = `
+      function showPrivacyPolicy() {
+        const privacyModal = document.createElement("div");
+        privacyModal.className =
+          "modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50";
+        privacyModal.innerHTML = `
     <div class="bg-white rounded-lg p-8 max-w-2xl w-full mx-4 max-h-[80vh] overflow-y-auto">
       <h3 class="text-xl font-semibold mb-4">Política de Privacidade</h3>
       <div class="prose prose-sm">
@@ -512,64 +798,75 @@ function showPrivacyPolicy() {
       </div>
     </div>
   `;
-  document.body.appendChild(privacyModal);
-}
+        document.body.appendChild(privacyModal);
+      }
 
-function handleSignup(event) {
-  event.preventDefault();
-  
-  const fullName = document.getElementById('fullName').value;
-  const email = document.getElementById('signupEmail').value;
-  const password = document.getElementById('signupPassword').value;
-  const confirmPassword = document.getElementById('confirmPassword').value;
-  const phone = document.getElementById('phone').value;
-  const isBusinessAccount = document.querySelector('.account-type.active').dataset.type === 'business';
-  
-  // Validate password
-  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
-  if (!passwordRegex.test(password)) {
-    showNotification('error', 'A senha deve ter no mínimo 8 caracteres, incluindo números e caracteres especiais');
-    return;
-  }
-  
-  if (password !== confirmPassword) {
-    showNotification('error', 'As senhas não coincidem');
-    return;
-  }
-  
-  // Validate phone
-  const phoneRegex = /^\(\d{2}\)\s\d{5}-\d{4}$/;
-  if (!phoneRegex.test(phone)) {
-    showNotification('error', 'Formato de telefone inválido');
-    return;
-  }
-  
-  // Validate document number
-  if (isBusinessAccount) {
-    const cnpj = document.getElementById('cnpj').value;
-    const cnpjRegex = /^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/;
-    if (!cnpjRegex.test(cnpj)) {
-      showNotification('error', 'CNPJ inválido');
-      return;
-    }
-  } else {
-    const cpf = document.getElementById('cpf').value;
-    const cpfRegex = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
-    if (!cpfRegex.test(cpf)) {
-      showNotification('error', 'CPF inválido');
-      return;
-    }
-  }
-  
-  // Mock signup success
-  localStorage.setItem('userEmail', email);
-  localStorage.setItem('userName', fullName);
-  localStorage.setItem('isLoggedIn', 'true');
-  localStorage.setItem('accountType', isBusinessAccount ? 'business' : 'personal');
-  
-  const successModal = document.createElement('div');
-  successModal.className = 'modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
-  successModal.innerHTML = `
+      function handleSignup(event) {
+        event.preventDefault();
+
+        const fullName = document.getElementById("fullName").value;
+        const email = document.getElementById("signupEmail").value;
+        const password = document.getElementById("signupPassword").value;
+        const confirmPassword =
+          document.getElementById("confirmPassword").value;
+        const phone = document.getElementById("phone").value;
+        const isBusinessAccount =
+          document.querySelector(".account-type.active").dataset.type ===
+          "business";
+
+        // Validate password
+        const passwordRegex =
+          /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+        if (!passwordRegex.test(password)) {
+          showNotification(
+            "error",
+            "A senha deve ter no mínimo 8 caracteres, incluindo números e caracteres especiais"
+          );
+          return;
+        }
+
+        if (password !== confirmPassword) {
+          showNotification("error", "As senhas não coincidem");
+          return;
+        }
+
+        // Validate phone
+        const phoneRegex = /^\(\d{2}\)\s\d{5}-\d{4}$/;
+        if (!phoneRegex.test(phone)) {
+          showNotification("error", "Formato de telefone inválido");
+          return;
+        }
+
+        // Validate document number
+        if (isBusinessAccount) {
+          const cnpj = document.getElementById("cnpj").value;
+          const cnpjRegex = /^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/;
+          if (!cnpjRegex.test(cnpj)) {
+            showNotification("error", "CNPJ inválido");
+            return;
+          }
+        } else {
+          const cpf = document.getElementById("cpf").value;
+          const cpfRegex = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
+          if (!cpfRegex.test(cpf)) {
+            showNotification("error", "CPF inválido");
+            return;
+          }
+        }
+
+        // Mock signup success
+        localStorage.setItem("userEmail", email);
+        localStorage.setItem("userName", fullName);
+        localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem(
+          "accountType",
+          isBusinessAccount ? "business" : "personal"
+        );
+
+        const successModal = document.createElement("div");
+        successModal.className =
+          "modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50";
+        successModal.innerHTML = `
     <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
       <div class="text-center">
         <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -583,49 +880,50 @@ function handleSignup(event) {
       </div>
     </div>
   `;
-  document.body.appendChild(successModal);
-}
+        document.body.appendChild(successModal);
+      }
 
-// Add input masks
-document.addEventListener('DOMContentLoaded', function() {
-  const phoneMask = IMask(document.getElementById('phone'), {
-    mask: '(00) 00000-0000'
-  });
-  
-  const cpfMask = IMask(document.getElementById('cpf'), {
-    mask: '000.000.000-00'
-  });
-  
-  const cnpjMask = IMask(document.getElementById('cnpj'), {
-    mask: '00.000.000/0000-00'
-  });
-});
-function finishSignup() {
-document.querySelectorAll('.modal').forEach(modal => modal.remove());
-updateLoginState(true);
-showNotification('success', 'Bem-vindo!');
-}
-function toggleSignupPasswordVisibility(inputId) {
-const passwordInput = document.getElementById(inputId);
-const button = event.currentTarget;
-const icon = button.querySelector('i');
-if(passwordInput.type === 'password') {
-passwordInput.type = 'text';
-icon.className = 'ri-eye-off-line';
-} else {
-passwordInput.type = 'password';
-icon.className = 'ri-eye-line';
-}
-}
-function toggleSignupLogin() {
-document.querySelector('.modal:last-child').remove();
-toggleModal('loginModal');
-}
-function showForgotPasswordModal() {
-toggleModal('loginModal');
-const forgotPasswordModal = document.createElement('div');
-forgotPasswordModal.className = 'modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
-forgotPasswordModal.innerHTML = `
+      // Add input masks
+      document.addEventListener("DOMContentLoaded", function () {
+        const phoneMask = IMask(document.getElementById("phone"), {
+          mask: "(00) 00000-0000",
+        });
+
+        const cpfMask = IMask(document.getElementById("cpf"), {
+          mask: "000.000.000-00",
+        });
+
+        const cnpjMask = IMask(document.getElementById("cnpj"), {
+          mask: "00.000.000/0000-00",
+        });
+      });
+      function finishSignup() {
+        document.querySelectorAll(".modal").forEach((modal) => modal.remove());
+        updateLoginState(true);
+        showNotification("success", "Bem-vindo!");
+      }
+      function toggleSignupPasswordVisibility(inputId) {
+        const passwordInput = document.getElementById(inputId);
+        const button = event.currentTarget;
+        const icon = button.querySelector("i");
+        if (passwordInput.type === "password") {
+          passwordInput.type = "text";
+          icon.className = "ri-eye-off-line";
+        } else {
+          passwordInput.type = "password";
+          icon.className = "ri-eye-line";
+        }
+      }
+      function toggleSignupLogin() {
+        document.querySelector(".modal:last-child").remove();
+        toggleModal("loginModal");
+      }
+      function showForgotPasswordModal() {
+        toggleModal("loginModal");
+        const forgotPasswordModal = document.createElement("div");
+        forgotPasswordModal.className =
+          "modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50";
+        forgotPasswordModal.innerHTML = `
 <div class="bg-white rounded-lg p-8 max-w-md w-full mx-4">
 <h2 class="text-2xl font-semibold mb-6 text-center">Recuperar Senha</h2>
 <form class="space-y-4" onsubmit="handleForgotPassword(event)">
@@ -645,23 +943,24 @@ forgotPasswordModal.innerHTML = `
 </button>
 </div>
 `;
-document.body.appendChild(forgotPasswordModal);
-forgotPasswordModal.addEventListener('click', (e) => {
-if(e.target === forgotPasswordModal) {
-forgotPasswordModal.remove();
-}
-});
-}
-function toggleForgotPasswordLogin() {
-document.querySelector('.modal:last-child').remove();
-toggleModal('loginModal');
-}
-function handleForgotPassword(event) {
-event.preventDefault();
-const email = event.target.querySelector('input[type="email"]').value;
-const successModal = document.createElement('div');
-successModal.className = 'modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
-successModal.innerHTML = `
+        document.body.appendChild(forgotPasswordModal);
+        forgotPasswordModal.addEventListener("click", (e) => {
+          if (e.target === forgotPasswordModal) {
+            forgotPasswordModal.remove();
+          }
+        });
+      }
+      function toggleForgotPasswordLogin() {
+        document.querySelector(".modal:last-child").remove();
+        toggleModal("loginModal");
+      }
+      function handleForgotPassword(event) {
+        event.preventDefault();
+        const email = event.target.querySelector('input[type="email"]').value;
+        const successModal = document.createElement("div");
+        successModal.className =
+          "modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50";
+        successModal.innerHTML = `
 <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
 <h3 class="text-lg font-semibold mb-4 text-primary">Email Enviado</h3>
 <p class="text-gray-600">Um link para recuperação de senha foi enviado para ${email}</p>
@@ -670,43 +969,43 @@ successModal.innerHTML = `
 </div>
 </div>
 `;
-document.body.appendChild(successModal);
-}
-function handleSuccessModalClose() {
-document.querySelectorAll('.modal').forEach(modal => modal.remove());
-toggleModal('loginModal');
-}
-function handleLogin(event) {
-event.preventDefault();
-const email = document.getElementById('loginEmail').value;
-const password = document.getElementById('loginPassword').value;
-const rememberMe = document.getElementById('rememberMe').checked;
-if(!email || !password) {
-showNotification('error', 'Por favor, preencha todos os campos');
-return;
-}
-// Mock login validation
-if(email === 'admin@example.com' && password === 'password123') {
-if(rememberMe) {
-localStorage.setItem('userEmail', email);
-localStorage.setItem('isLoggedIn', 'true');
-}
-showNotification('success', 'Login realizado com sucesso!');
-setTimeout(() => {
-toggleModal('loginModal');
-updateLoginState(true);
-}, 1500);
-} else {
-showNotification('error', 'Email ou senha incorretos');
-}
-}
-function showNotification(type, message) {
-const notification = document.createElement('div');
-notification.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg z-50 transform transition-transform duration-300 translate-x-full`;
-notification.style.maxWidth = '24rem';
-if(type === 'success') {
-notification.className += ' bg-green-50 border border-green-200';
-notification.innerHTML = `
+        document.body.appendChild(successModal);
+      }
+      function handleSuccessModalClose() {
+        document.querySelectorAll(".modal").forEach((modal) => modal.remove());
+        toggleModal("loginModal");
+      }
+      function handleLogin(event) {
+        event.preventDefault();
+        const email = document.getElementById("loginEmail").value;
+        const password = document.getElementById("loginPassword").value;
+        const rememberMe = document.getElementById("rememberMe").checked;
+        if (!email || !password) {
+          showNotification("error", "Por favor, preencha todos os campos");
+          return;
+        }
+        // Mock login validation
+        if (email === "admin@example.com" && password === "password123") {
+          if (rememberMe) {
+            localStorage.setItem("userEmail", email);
+            localStorage.setItem("isLoggedIn", "true");
+          }
+          showNotification("success", "Login realizado com sucesso!");
+          setTimeout(() => {
+            toggleModal("loginModal");
+            updateLoginState(true);
+          }, 1500);
+        } else {
+          showNotification("error", "Email ou senha incorretos");
+        }
+      }
+      function showNotification(type, message) {
+        const notification = document.createElement("div");
+        notification.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg z-50 transform transition-transform duration-300 translate-x-full`;
+        notification.style.maxWidth = "24rem";
+        if (type === "success") {
+          notification.className += " bg-green-50 border border-green-200";
+          notification.innerHTML = `
 <div class="flex items-center">
 <div class="flex-shrink-0">
 <div class="w-8 h-8 flex items-center justify-center rounded-full bg-green-100">
@@ -725,9 +1024,9 @@ notification.innerHTML = `
 </div>
 </div>
 `;
-} else {
-notification.className += ' bg-red-50 border border-red-200';
-notification.innerHTML = `
+        } else {
+          notification.className += " bg-red-50 border border-red-200";
+          notification.innerHTML = `
 <div class="flex items-center">
 <div class="flex-shrink-0">
 <div class="w-8 h-8 flex items-center justify-center rounded-full bg-red-100">
@@ -746,71 +1045,75 @@ notification.innerHTML = `
 </div>
 </div>
 `;
-}
-document.body.appendChild(notification);
-requestAnimationFrame(() => {
-notification.classList.remove('translate-x-full');
-});
-setTimeout(() => {
-notification.classList.add('translate-x-full');
-setTimeout(() => notification.remove(), 300);
-}, 3000);
-}
-function togglePasswordVisibility() {
-const passwordInput = document.getElementById('loginPassword');
-const button = event.currentTarget;
-const icon = button.querySelector('i');
-if(passwordInput.type === 'password') {
-passwordInput.type = 'text';
-icon.className = 'ri-eye-off-line';
-} else {
-passwordInput.type = 'password';
-icon.className = 'ri-eye-line';
-}
-}
-function socialLogin(provider) {
-const providers = {
-google: {
-name: 'Google',
-color: '#EA4335'
-},
-facebook: {
-name: 'Facebook',
-color: '#1877F2'
-},
-apple: {
-name: 'Apple',
-color: '#000000'
-}
-};
-showNotification('success', `Conectando com ${providers[provider].name}...`);
-setTimeout(() => {
-toggleModal('loginModal');
-updateLoginState(true);
-}, 1500);
-}
-function updateLoginState(isLoggedIn) {
-const loginBtn = document.getElementById('loginBtn');
-if(isLoggedIn) {
-loginBtn.innerHTML = `
+        }
+        document.body.appendChild(notification);
+        requestAnimationFrame(() => {
+          notification.classList.remove("translate-x-full");
+        });
+        setTimeout(() => {
+          notification.classList.add("translate-x-full");
+          setTimeout(() => notification.remove(), 300);
+        }, 3000);
+      }
+      function togglePasswordVisibility() {
+        const passwordInput = document.getElementById("loginPassword");
+        const button = event.currentTarget;
+        const icon = button.querySelector("i");
+        if (passwordInput.type === "password") {
+          passwordInput.type = "text";
+          icon.className = "ri-eye-off-line";
+        } else {
+          passwordInput.type = "password";
+          icon.className = "ri-eye-line";
+        }
+      }
+      function socialLogin(provider) {
+        const providers = {
+          google: {
+            name: "Google",
+            color: "#EA4335",
+          },
+          facebook: {
+            name: "Facebook",
+            color: "#1877F2",
+          },
+          apple: {
+            name: "Apple",
+            color: "#000000",
+          },
+        };
+        showNotification(
+          "success",
+          `Conectando com ${providers[provider].name}...`
+        );
+        setTimeout(() => {
+          toggleModal("loginModal");
+          updateLoginState(true);
+        }, 1500);
+      }
+      function updateLoginState(isLoggedIn) {
+        const loginBtn = document.getElementById("loginBtn");
+        if (isLoggedIn) {
+          loginBtn.innerHTML = `
 <div class="w-6 h-6 flex items-center justify-center">
 <i class="ri-user-fill text-primary"></i>
 </div>
 `;
-loginBtn.onclick = showUserMenu;
-} else {
-loginBtn.innerHTML = `
+          loginBtn.onclick = showUserMenu;
+        } else {
+          loginBtn.innerHTML = `
 <div class="w-6 h-6 flex items-center justify-center">
 <i class="ri-user-line"></i>
 </div>
 `;
-loginBtn.onclick = () => toggleModal('loginModal');
-}
-}
-function showUserMenu() {
-const userMenu = document.createElement('div');
-userMenu.className = 'fixed top-20 right-4 w-48 rounded-lg bg-white shadow-lg py-1 z-50';
-userMenu.innerHTML = `
+          loginBtn.onclick = () => toggleModal("loginModal");
+        }
+      }
+      function showUserMenu() {
+        const userMenu = document.createElement("div");
+        userMenu.className =
+          "fixed top-20 right-4 w-48 rounded-lg bg-white shadow-lg py-1 z-50";
+        userMenu.innerHTML = `
 <div class="px-4 py-2 border-b">
 <p class="text-sm font-medium text-gray-900">admin@example.com</p>
 </div>
@@ -831,48 +1134,54 @@ Sair
 </div>
 </a>
 `;
-document.body.appendChild(userMenu);
-document.addEventListener('click', function closeUserMenu(e) {
-if(!userMenu.contains(e.target) && !event.currentTarget.contains(e.target)) {
-userMenu.remove();
-document.removeEventListener('click', closeUserMenu);
-}
-});
-}
-function logout() {
-localStorage.removeItem('userEmail');
-localStorage.removeItem('isLoggedIn');
-updateLoginState(false);
-showNotification('success', 'Logout realizado com sucesso!');
-document.querySelector('.fixed.top-20').remove();
-}
-// Check if user is already logged in
-window.addEventListener('load', () => {
-if(localStorage.getItem('isLoggedIn') === 'true') {
-updateLoginState(true);
-}
-});
-function finishLogin() {
-document.querySelectorAll('.modal').forEach(modal => modal.remove());
-const loginBtn = document.getElementById('loginBtn');
-loginBtn.innerHTML = `
+        document.body.appendChild(userMenu);
+        document.addEventListener("click", function closeUserMenu(e) {
+          if (
+            !userMenu.contains(e.target) &&
+            !event.currentTarget.contains(e.target)
+          ) {
+            userMenu.remove();
+            document.removeEventListener("click", closeUserMenu);
+          }
+        });
+      }
+      function logout() {
+        localStorage.removeItem("userEmail");
+        localStorage.removeItem("isLoggedIn");
+        updateLoginState(false);
+        showNotification("success", "Logout realizado com sucesso!");
+        document.querySelector(".fixed.top-20").remove();
+      }
+      // Check if user is already logged in
+      window.addEventListener("load", () => {
+        if (localStorage.getItem("isLoggedIn") === "true") {
+          updateLoginState(true);
+        }
+      });
+      function finishLogin() {
+        document.querySelectorAll(".modal").forEach((modal) => modal.remove());
+        const loginBtn = document.getElementById("loginBtn");
+        loginBtn.innerHTML = `
 <div class="w-6 h-6 flex items-center justify-center">
 <i class="ri-user-fill text-primary"></i>
 </div>
 `;
-}
-function toggleModal(modalId) {
-const modal = document.getElementById(modalId);
-if(modal) {
-modal.classList.toggle('active');
-}
-}
-function showMenu(button) {
-const menuModal = document.createElement('div');
-menuModal.className = 'modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
-const eventTitle = button.closest('.p-4')?.querySelector('h3')?.textContent || button.closest('.bg-white')?.querySelector('h2')?.textContent;
-if(eventTitle.includes('Casamento')) {
-menuModal.innerHTML = `
+      }
+      function toggleModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+          modal.classList.toggle("active");
+        }
+      }
+      function showMenu(button) {
+        const menuModal = document.createElement("div");
+        menuModal.className =
+          "modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50";
+        const eventTitle =
+          button.closest(".p-4")?.querySelector("h3")?.textContent ||
+          button.closest(".bg-white")?.querySelector("h2")?.textContent;
+        if (eventTitle.includes("Casamento")) {
+          menuModal.innerHTML = `
 <div class="bg-white rounded-lg p-8 max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto">
 <div class="flex justify-between items-center mb-6">
 <h2 class="text-2xl font-semibold">Cardápio de Casamento - ${eventTitle}</h2>
@@ -1020,8 +1329,8 @@ menuModal.innerHTML = `
 </div>
 </div>
 `;
-} else {
-menuModal.innerHTML = `
+        } else {
+          menuModal.innerHTML = `
 <div class="bg-white rounded-lg p-8 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
 <div class="flex justify-between items-center mb-6">
 <h2 class="text-2xl font-semibold">Cardápio - ${eventTitle}</h2>
@@ -1101,65 +1410,66 @@ menuModal.innerHTML = `
 </div>
 </div>
 `;
-}
-document.body.appendChild(menuModal);
-menuModal.addEventListener('click', (e) => {
-if(e.target === menuModal) {
-menuModal.remove();
-}
-});
-}
-function addToCart(eventTitle, menuType, pricePerPerson) {
-const menuItems = {
-'Coffee Break Básico': [
-{name: 'Café', price: 5},
-{name: 'Chás', price: 4},
-{name: 'Água', price: 3},
-{name: 'Sucos naturais', price: 6},
-{name: 'Mini pães', price: 4},
-{name: 'Croissants', price: 5},
-{name: 'Bolos variados', price: 7}
-],
-'Coffee Break Premium': [
-{name: 'Café premium', price: 8},
-{name: 'Chás especiais', price: 6},
-{name: 'Água', price: 3},
-{name: 'Sucos naturais', price: 6},
-{name: 'Refrigerantes', price: 5},
-{name: 'Salgados finos', price: 8},
-{name: 'Doces gourmet', price: 9},
-{name: 'Frutas frescas', price: 7}
-],
-'Menu Executivo': [
-{name: 'Saladas variadas', price: 12},
-{name: 'Filé mignon', price: 35},
-{name: 'Frango grelhado', price: 25},
-{name: 'Arroz branco', price: 8},
-{name: 'Legumes salteados', price: 10},
-{name: 'Batatas assadas', price: 9},
-{name: 'Sobremesa', price: 12},
-{name: 'Bebidas não alcoólicas', price: 8}
-],
-'Menu Premium': [
-{name: 'Entradas quentes', price: 18},
-{name: 'Entradas frias', price: 16},
-{name: 'Filé mignon', price: 35},
-{name: 'Salmão grelhado', price: 40},
-{name: 'Cordeiro', price: 45},
-{name: 'Arroz de amêndoas', price: 12},
-{name: 'Legumes orgânicos', price: 15},
-{name: 'Batatas gratinadas', price: 14},
-{name: 'Mix de cogumelos', price: 18},
-{name: 'Risoto', price: 20},
-{name: 'Sobremesas variadas', price: 16},
-{name: 'Bebidas premium', price: 12},
-{name: 'Café especial', price: 8}
-]
-};
-const items = menuItems[menuType];
-const quantityModal = document.createElement('div');
-quantityModal.className = 'modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
-quantityModal.innerHTML = `
+        }
+        document.body.appendChild(menuModal);
+        menuModal.addEventListener("click", (e) => {
+          if (e.target === menuModal) {
+            menuModal.remove();
+          }
+        });
+      }
+      function addToCart(eventTitle, menuType, pricePerPerson) {
+        const menuItems = {
+          "Coffee Break Básico": [
+            { name: "Café", price: 5 },
+            { name: "Chás", price: 4 },
+            { name: "Água", price: 3 },
+            { name: "Sucos naturais", price: 6 },
+            { name: "Mini pães", price: 4 },
+            { name: "Croissants", price: 5 },
+            { name: "Bolos variados", price: 7 },
+          ],
+          "Coffee Break Premium": [
+            { name: "Café premium", price: 8 },
+            { name: "Chás especiais", price: 6 },
+            { name: "Água", price: 3 },
+            { name: "Sucos naturais", price: 6 },
+            { name: "Refrigerantes", price: 5 },
+            { name: "Salgados finos", price: 8 },
+            { name: "Doces gourmet", price: 9 },
+            { name: "Frutas frescas", price: 7 },
+          ],
+          "Menu Executivo": [
+            { name: "Saladas variadas", price: 12 },
+            { name: "Filé mignon", price: 35 },
+            { name: "Frango grelhado", price: 25 },
+            { name: "Arroz branco", price: 8 },
+            { name: "Legumes salteados", price: 10 },
+            { name: "Batatas assadas", price: 9 },
+            { name: "Sobremesa", price: 12 },
+            { name: "Bebidas não alcoólicas", price: 8 },
+          ],
+          "Menu Premium": [
+            { name: "Entradas quentes", price: 18 },
+            { name: "Entradas frias", price: 16 },
+            { name: "Filé mignon", price: 35 },
+            { name: "Salmão grelhado", price: 40 },
+            { name: "Cordeiro", price: 45 },
+            { name: "Arroz de amêndoas", price: 12 },
+            { name: "Legumes orgânicos", price: 15 },
+            { name: "Batatas gratinadas", price: 14 },
+            { name: "Mix de cogumelos", price: 18 },
+            { name: "Risoto", price: 20 },
+            { name: "Sobremesas variadas", price: 16 },
+            { name: "Bebidas premium", price: 12 },
+            { name: "Café especial", price: 8 },
+          ],
+        };
+        const items = menuItems[menuType];
+        const quantityModal = document.createElement("div");
+        quantityModal.className =
+          "modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50";
+        quantityModal.innerHTML = `
 <div class="bg-white rounded-lg p-6 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
 <div class="flex justify-between items-center mb-6">
 <h3 class="text-xl font-semibold">${eventTitle} - ${menuType}</h3>
@@ -1185,7 +1495,9 @@ quantityModal.innerHTML = `
 </div>
 <div class="space-y-4">
 <h4 class="font-medium text-gray-900">Itens do cardápio</h4>
-${items.map((item, index) => `
+${items
+  .map(
+    (item, index) => `
 <div class="flex items-center justify-between p-4 border rounded-lg bg-white hover:border-primary transition-colors">
 <div class="flex-1">
 <span class="font-medium text-gray-900">${item.name}</span>
@@ -1201,7 +1513,9 @@ ${items.map((item, index) => `
 </button>
 </div>
 </div>
-`).join('')}
+`
+  )
+  .join("")}
 </div>
 <div class="sticky bottom-0 bg-white border-t pt-4 mt-6">
 <div class="flex justify-between items-center font-semibold text-lg mb-4">
@@ -1210,67 +1524,88 @@ ${items.map((item, index) => `
 </div>
 <div class="flex justify-end space-x-3">
 <button onclick="this.closest('.modal').remove()" class="px-6 py-2 text-gray-600 hover:text-gray-800 font-medium">Cancelar</button>
-<button onclick="confirmAddToCart('${eventTitle}', '${menuType}', ${JSON.stringify(items).replace(/"/g, '&quot;')})" class="bg-primary text-white px-6 py-2 rounded-button hover:bg-opacity-90 font-medium">Adicionar ao carrinho</button>
+<button onclick="confirmAddToCart('${eventTitle}', '${menuType}', ${JSON.stringify(
+          items
+        ).replace(
+          /"/g,
+          "&quot;"
+        )})" class="bg-primary text-white px-6 py-2 rounded-button hover:bg-opacity-90 font-medium">Adicionar ao carrinho</button>
 </div>
 </div>
 </div>
 `;
-document.body.appendChild(quantityModal);
-quantityModal.addEventListener('click', (e) => {
-if(e.target === quantityModal) {
-quantityModal.remove();
-}
-});
-// Add event listeners for quantity changes
-document.querySelectorAll('.item-quantity').forEach(input => {
-input.addEventListener('change', updateMenuTotal);
-input.addEventListener('input', updateMenuTotal);
-});
-updateMenuTotal();
-}
-function adjustPersonCount(change) {
-const input = document.getElementById('personCount');
-let newValue = parseInt(input.value) + change;
-if (newValue < 10) newValue = 10;
-input.value = newValue;
-updateMenuTotal();
-}
-function incrementQuantity(index) {
-const input = document.querySelector(`.item-quantity[data-index="${index}"]`);
-input.value = parseInt(input.value) + 1;
-updateMenuTotal();
-}
-function decrementQuantity(index) {
-const input = document.querySelector(`.item-quantity[data-index="${index}"]`);
-if(parseInt(input.value) > 0) {
-input.value = parseInt(input.value) - 1;
-updateMenuTotal();
-}
-}
-function updateMenuTotal() {
-const personCount = parseInt(document.getElementById('personCount').value) || 0;
-const quantities = Array.from(document.querySelectorAll('.item-quantity')).map(input => parseInt(input.value) || 0);
-const items = document.querySelectorAll('.item-quantity').length;
-let total = 0;
-for(let i = 0; i < items; i++) {
-const itemPrice = parseFloat(document.querySelectorAll('.item-quantity')[i].closest('.flex').querySelector('.text-gray-500').textContent.replace('R$ ', ''));
-total += itemPrice * quantities[i] * personCount;
-}
-document.getElementById('menuTotal').textContent = `R$ ${total.toFixed(2)}`;
-}
-document.body.appendChild(quantityModal);
-quantityModal.addEventListener('click', (e) => {
-if(e.target === quantityModal) {
-quantityModal.remove();
-}
-});
+        document.body.appendChild(quantityModal);
+        quantityModal.addEventListener("click", (e) => {
+          if (e.target === quantityModal) {
+            quantityModal.remove();
+          }
+        });
+        // Add event listeners for quantity changes
+        document.querySelectorAll(".item-quantity").forEach((input) => {
+          input.addEventListener("change", updateMenuTotal);
+          input.addEventListener("input", updateMenuTotal);
+        });
+        updateMenuTotal();
+      }
+      function adjustPersonCount(change) {
+        const input = document.getElementById("personCount");
+        let newValue = parseInt(input.value) + change;
+        if (newValue < 10) newValue = 10;
+        input.value = newValue;
+        updateMenuTotal();
+      }
+      function incrementQuantity(index) {
+        const input = document.querySelector(
+          `.item-quantity[data-index="${index}"]`
+        );
+        input.value = parseInt(input.value) + 1;
+        updateMenuTotal();
+      }
+      function decrementQuantity(index) {
+        const input = document.querySelector(
+          `.item-quantity[data-index="${index}"]`
+        );
+        if (parseInt(input.value) > 0) {
+          input.value = parseInt(input.value) - 1;
+          updateMenuTotal();
+        }
+      }
+      function updateMenuTotal() {
+        const personCount =
+          parseInt(document.getElementById("personCount").value) || 0;
+        const quantities = Array.from(
+          document.querySelectorAll(".item-quantity")
+        ).map((input) => parseInt(input.value) || 0);
+        const items = document.querySelectorAll(".item-quantity").length;
+        let total = 0;
+        for (let i = 0; i < items; i++) {
+          const itemPrice = parseFloat(
+            document
+              .querySelectorAll(".item-quantity")
+              [i].closest(".flex")
+              .querySelector(".text-gray-500")
+              .textContent.replace("R$ ", "")
+          );
+          total += itemPrice * quantities[i] * personCount;
+        }
+        document.getElementById("menuTotal").textContent = `R$ ${total.toFixed(
+          2
+        )}`;
+      }
+      document.body.appendChild(quantityModal);
+      quantityModal.addEventListener("click", (e) => {
+        if (e.target === quantityModal) {
+          quantityModal.remove();
+        }
+      });
 
-function confirmAddToCart(eventTitle, menuType, items) {
-const quantity = parseInt(document.getElementById('personCount').value);
-if(quantity < 10) {
-const errorModal = document.createElement('div');
-errorModal.className = 'modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
-errorModal.innerHTML = `
+      function confirmAddToCart(eventTitle, menuType, items) {
+        const quantity = parseInt(document.getElementById("personCount").value);
+        if (quantity < 10) {
+          const errorModal = document.createElement("div");
+          errorModal.className =
+            "modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50";
+          errorModal.innerHTML = `
 <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
 <h3 class="text-lg font-semibold mb-4 text-red-600">Erro</h3>
 <p>A quantidade mínima é de 10 pessoas</p>
@@ -1279,19 +1614,22 @@ errorModal.innerHTML = `
 </div>
 </div>
 `;
-document.body.appendChild(errorModal);
-return;
-}
-const selectedItems = Array.from(document.querySelectorAll('.item-quantity'))
-.map((input, index) => ({
-...items[index],
-quantity: parseInt(input.value) || 0
-}))
-.filter(item => item.quantity > 0);
-if(selectedItems.length === 0) {
-const errorModal = document.createElement('div');
-errorModal.className = 'modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
-errorModal.innerHTML = `
+          document.body.appendChild(errorModal);
+          return;
+        }
+        const selectedItems = Array.from(
+          document.querySelectorAll(".item-quantity")
+        )
+          .map((input, index) => ({
+            ...items[index],
+            quantity: parseInt(input.value) || 0,
+          }))
+          .filter((item) => item.quantity > 0);
+        if (selectedItems.length === 0) {
+          const errorModal = document.createElement("div");
+          errorModal.className =
+            "modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50";
+          errorModal.innerHTML = `
 <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
 <h3 class="text-lg font-semibold mb-4 text-red-600">Erro</h3>
 <p>Selecione pelo menos um item</p>
@@ -1300,16 +1638,18 @@ errorModal.innerHTML = `
 </div>
 </div>
 `;
-document.body.appendChild(errorModal);
-return;
-}
-const cartItems = document.getElementById('cartItems');
-let eventSection = cartItems.querySelector(`[data-event="${eventTitle}"]`);
-if(!eventSection) {
-eventSection = document.createElement('div');
-eventSection.className = 'border rounded-lg p-4';
-eventSection.setAttribute('data-event', eventTitle);
-eventSection.innerHTML = `
+          document.body.appendChild(errorModal);
+          return;
+        }
+        const cartItems = document.getElementById("cartItems");
+        let eventSection = cartItems.querySelector(
+          `[data-event="${eventTitle}"]`
+        );
+        if (!eventSection) {
+          eventSection = document.createElement("div");
+          eventSection.className = "border rounded-lg p-4";
+          eventSection.setAttribute("data-event", eventTitle);
+          eventSection.innerHTML = `
 <div class="flex justify-between items-center mb-2">
 <h3 class="font-semibold">${eventTitle}</h3>
 <button onclick="removeEventFromCart(this)" class="text-gray-400 hover:text-gray-600">
@@ -1320,13 +1660,17 @@ eventSection.innerHTML = `
 </div>
 <div class="space-y-2" data-items></div>
 `;
-cartItems.appendChild(eventSection);
-}
-const itemsContainer = eventSection.querySelector('[data-items]');
-const totalPrice = selectedItems.reduce((sum, item) => sum + (item.price * item.quantity * quantity), 0);
-const itemElement = document.createElement('div');
-itemElement.className = 'space-y-2 border-b pb-2 last:border-b-0 last:pb-0';
-itemElement.innerHTML = `
+          cartItems.appendChild(eventSection);
+        }
+        const itemsContainer = eventSection.querySelector("[data-items]");
+        const totalPrice = selectedItems.reduce(
+          (sum, item) => sum + item.price * item.quantity * quantity,
+          0
+        );
+        const itemElement = document.createElement("div");
+        itemElement.className =
+          "space-y-2 border-b pb-2 last:border-b-0 last:pb-0";
+        itemElement.innerHTML = `
 <div class="flex justify-between items-center">
 <span class="font-medium">${menuType} - ${quantity} pessoas</span>
 <button onclick="removeItemFromCart(this)" class="text-gray-400 hover:text-gray-600">
@@ -1336,79 +1680,93 @@ itemElement.innerHTML = `
 </button>
 </div>
 <div class="text-sm text-gray-600 space-y-1">
-${selectedItems.map(item => `
+${selectedItems
+  .map(
+    (item) => `
 <div class="flex justify-between">
 <span>${item.name}</span>
-<span>${item.quantity}x - R$ ${(item.price * item.quantity * quantity).toFixed(2)}</span>
+<span>${item.quantity}x - R$ ${(item.price * item.quantity * quantity).toFixed(
+      2
+    )}</span>
 </div>
-`).join('')}
+`
+  )
+  .join("")}
 </div>
 <div class="flex justify-end font-medium">
 <span>Total: R$ ${totalPrice.toFixed(2)}</span>
 </div>
 `;
-itemsContainer.appendChild(itemElement);
-updateCartTotal();
-document.querySelector('.modal:last-child').remove();
-toggleModal('cartModal');
-}
-function removeItemFromCart(button) {
-const item = button.closest('.flex');
-const itemsContainer = item.closest('[data-items]');
-item.remove();
-if(itemsContainer.children.length === 0) {
-itemsContainer.closest('[data-event]').remove();
-}
-updateCartTotal();
-}
-function removeEventFromCart(button) {
-button.closest('[data-event]').remove();
-updateCartTotal();
-}
-function updateCartTotal() {
-let total = 0;
-const cartItems = document.getElementById('cartItems');
-const emptyCart = document.getElementById('emptyCart');
-const cartFooter = document.getElementById('cartFooter');
-const cartCount = document.getElementById('cartCount');
-const items = document.querySelectorAll('#cartItems [data-items] .flex');
-if (items.length === 0) {
-cartItems.classList.add('hidden');
-emptyCart.classList.remove('hidden');
-cartFooter.classList.add('hidden');
-cartCount.classList.add('hidden');
-} else {
-cartItems.classList.remove('hidden');
-emptyCart.classList.add('hidden');
-cartFooter.classList.remove('hidden');
-cartCount.classList.remove('hidden');
-items.forEach(item => {
-const price = parseFloat(item.querySelector('span:last-child').textContent.replace('R$ ', ''));
-total += price;
-});
-cartCount.textContent = items.length;
-}
-const totalElement = document.getElementById('cartTotalAmount');
-totalElement.textContent = `R$ ${total.toFixed(2)}`;
-}
-function proceedToCheckout() {
-const cartItems = document.getElementById('cartItems').innerHTML;
-const cartTotal = document.querySelector('#cartModal .font-semibold span:last-child').textContent;
-document.getElementById('checkoutItems').innerHTML = cartItems;
-document.getElementById('checkoutTotal').textContent = cartTotal;
-toggleModal('cartModal');
-toggleModal('checkoutModal');
-}
-function selectPaymentMethod(method) {
-document.querySelectorAll('.payment-method').forEach(btn => {
-btn.classList.remove('border-primary');
-});
-event.currentTarget.classList.add('border-primary');
-const paymentDetails = document.getElementById('paymentDetails');
-paymentDetails.classList.remove('hidden');
-switch(method) {
-case 'pix':
-paymentDetails.innerHTML = `
+        itemsContainer.appendChild(itemElement);
+        updateCartTotal();
+        document.querySelector(".modal:last-child").remove();
+        toggleModal("cartModal");
+      }
+      function removeItemFromCart(button) {
+        const item = button.closest(".flex");
+        const itemsContainer = item.closest("[data-items]");
+        item.remove();
+        if (itemsContainer.children.length === 0) {
+          itemsContainer.closest("[data-event]").remove();
+        }
+        updateCartTotal();
+      }
+      function removeEventFromCart(button) {
+        button.closest("[data-event]").remove();
+        updateCartTotal();
+      }
+      function updateCartTotal() {
+        let total = 0;
+        const cartItems = document.getElementById("cartItems");
+        const emptyCart = document.getElementById("emptyCart");
+        const cartFooter = document.getElementById("cartFooter");
+        const cartCount = document.getElementById("cartCount");
+        const items = document.querySelectorAll(
+          "#cartItems [data-items] .flex"
+        );
+        if (items.length === 0) {
+          cartItems.classList.add("hidden");
+          emptyCart.classList.remove("hidden");
+          cartFooter.classList.add("hidden");
+          cartCount.classList.add("hidden");
+        } else {
+          cartItems.classList.remove("hidden");
+          emptyCart.classList.add("hidden");
+          cartFooter.classList.remove("hidden");
+          cartCount.classList.remove("hidden");
+          items.forEach((item) => {
+            const price = parseFloat(
+              item
+                .querySelector("span:last-child")
+                .textContent.replace("R$ ", "")
+            );
+            total += price;
+          });
+          cartCount.textContent = items.length;
+        }
+        const totalElement = document.getElementById("cartTotalAmount");
+        totalElement.textContent = `R$ ${total.toFixed(2)}`;
+      }
+      function proceedToCheckout() {
+        const cartItems = document.getElementById("cartItems").innerHTML;
+        const cartTotal = document.querySelector(
+          "#cartModal .font-semibold span:last-child"
+        ).textContent;
+        document.getElementById("checkoutItems").innerHTML = cartItems;
+        document.getElementById("checkoutTotal").textContent = cartTotal;
+        toggleModal("cartModal");
+        toggleModal("checkoutModal");
+      }
+      function selectPaymentMethod(method) {
+        document.querySelectorAll(".payment-method").forEach((btn) => {
+          btn.classList.remove("border-primary");
+        });
+        event.currentTarget.classList.add("border-primary");
+        const paymentDetails = document.getElementById("paymentDetails");
+        paymentDetails.classList.remove("hidden");
+        switch (method) {
+          case "pix":
+            paymentDetails.innerHTML = `
 <div class="border rounded-lg p-4">
 <h4 class="font-medium mb-4">Pagamento via PIX</h4>
 <div class="bg-gray-50 p-4 rounded flex items-center justify-center">
@@ -1419,9 +1777,9 @@ paymentDetails.innerHTML = `
 <p class="text-sm text-gray-600 mt-4 text-center">Escaneie o QR Code para realizar o pagamento</p>
 </div>
 `;
-break;
-case 'credit':
-paymentDetails.innerHTML = `
+            break;
+          case "credit":
+            paymentDetails.innerHTML = `
 <div class="border rounded-lg p-4 space-y-4">
 <h4 class="font-medium mb-2">Dados do Cartão</h4>
 <div>
@@ -1455,9 +1813,9 @@ paymentDetails.innerHTML = `
 </div>
 </div>
 `;
-break;
-case 'boleto':
-paymentDetails.innerHTML = `
+            break;
+          case "boleto":
+            paymentDetails.innerHTML = `
 <div class="border rounded-lg p-4">
 <h4 class="font-medium mb-4">Pagamento via Boleto</h4>
 <p class="text-sm text-gray-600 mb-4">O boleto será gerado após a confirmação do pedido e terá vencimento em 3 dias úteis.</p>
@@ -1471,9 +1829,9 @@ paymentDetails.innerHTML = `
 </div>
 </div>
 `;
-break;
-case 'transfer':
-paymentDetails.innerHTML = `
+            break;
+          case "transfer":
+            paymentDetails.innerHTML = `
 <div class="border rounded-lg p-4">
 <h4 class="font-medium mb-4">Dados Bancários</h4>
 <div class="space-y-3">
@@ -1508,13 +1866,14 @@ paymentDetails.innerHTML = `
 </div>
 </div>
 `;
-break;
-}
-}
-function confirmPayment() {
-const successModal = document.createElement('div');
-successModal.className = 'modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
-successModal.innerHTML = `
+            break;
+        }
+      }
+      function confirmPayment() {
+        const successModal = document.createElement("div");
+        successModal.className =
+          "modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50";
+        successModal.innerHTML = `
 <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
 <div class="text-center">
 <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -1528,21 +1887,21 @@ Concluir
 </div>
 </div>
 `;
-document.body.appendChild(successModal);
-}
-function finishOrder() {
-document.querySelectorAll('.modal').forEach(modal => modal.remove());
-document.getElementById('cartItems').innerHTML = '';
-updateCartTotal();
-}
-document.querySelectorAll('.modal').forEach(modal => {
-modal.addEventListener('click', (e) => {
-if(e.target === modal) {
-const modalId = modal.id;
-toggleModal(modalId);
-}
-});
-});
-</script>
-</body>
+        document.body.appendChild(successModal);
+      }
+      function finishOrder() {
+        document.querySelectorAll(".modal").forEach((modal) => modal.remove());
+        document.getElementById("cartItems").innerHTML = "";
+        updateCartTotal();
+      }
+      document.querySelectorAll(".modal").forEach((modal) => {
+        modal.addEventListener("click", (e) => {
+          if (e.target === modal) {
+            const modalId = modal.id;
+            toggleModal(modalId);
+          }
+        });
+      });
+    </script>
+  </body>
 </html>
