@@ -108,60 +108,57 @@
           </div>
         </div>
       </div>
-            <!-- Seção de Eventos -->
-            <section class="mb-12">
-              <h2 class="text-2xl font-bold text-gray-900 mb-6">Eventos</h2>
-              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Card de Almoços -->
-                <div
-                  class="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer hover:shadow-md transition-shadow"
-                >
-                  <img
-                    src="https://public.readdy.ai/ai/img_res/55eaadf365aeff4129df0acbb3149b0c.jpg"
-                    class="w-full h-48 object-cover"
-                    alt="Evento Corporativo"
-                  />
-                  <div class="p-4">
-                    <h3 class="text-lg font-semibold mb-2">Almoços</h3>
-                    <p class="text-sm text-gray-600 mb-2">
-                      Todas nossas opções de almoço em um único lugar!
-                    </p>
-                   
-                               
-                    
-                    <button
-                      onclick="showMenu(this)"
-                      class="w-full bg-primary text-white py-2 px-4 rounded-button hover:bg-opacity-90 transition-colors"
-                    >
-                      Ver Cardápio
-                    </button>
-                  </div>
-                </div>
-      
-                <!-- Card de Coffee Break -->
-                <div
-                  class="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer hover:shadow-md transition-shadow"
-                >
-                  <img
-                    src="https://public.readdy.ai/ai/img_res/db664c6aebb158cca366e3da42aa121f.jpg"
-                    class="w-full h-48 object-cover"
-                    alt="Formatura"
-                  />
-                  <div class="p-4">
-                    <h3 class="text-lg font-semibold mb-2">Coffee Break</h3>
-                    <p class="text-sm text-gray-600 mb-2">
-                      Todas nossas opções Coffee Breaks em um único lugar! 
-                    </p>
-                    <button
-                      onclick="showMenu(this)"
-                      class="w-full bg-primary text-white py-2 px-4 rounded-button hover:bg-opacity-90 transition-colors"
-                    >
-                      Ver Cardápio
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </section>
+      <!-- Seção de Eventos -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">Eventos</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Card de Coffee Break -->
+          <div
+            class="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer hover:shadow-md transition-shadow"
+          >
+            <img
+              src="https://public.readdy.ai/ai/img_res/db664c6aebb158cca366e3da42aa121f.jpg"
+              class="w-full h-48 object-cover"
+              alt="Formatura"
+            />
+            <div class="p-4">
+              <h3 class="text-lg font-semibold mb-2">Coffee Break</h3>
+              <p class="text-sm text-gray-600 mb-2">
+                Todas nossas opções Coffee Breaks em um único lugar!
+              </p>
+              <button
+                onclick="showMenu(this)"
+                class="w-full bg-primary text-white py-2 px-4 rounded-button hover:bg-opacity-90 transition-colors"
+              >
+                Ver Cardápio
+              </button>
+            </div>
+          </div>
+
+          <!-- Card de Almoços -->
+          <div
+            class="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer hover:shadow-md transition-shadow"
+          >
+            <img
+              src="https://public.readdy.ai/ai/img_res/55eaadf365aeff4129df0acbb3149b0c.jpg"
+              class="w-full h-48 object-cover"
+              alt="Evento Corporativo"
+            />
+            <div class="p-4">
+              <h3 class="text-lg font-semibold mb-2">Almoços</h3>
+              <p class="text-sm text-gray-600 mb-2">
+                Todas nossas opções de almoço em um único lugar!
+              </p>
+              <button
+                onclick="showMenu(this)"
+                class="w-full bg-primary text-white py-2 px-4 rounded-button hover:bg-opacity-90 transition-colors"
+              >
+                Ver Cardápio
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <!-- Seção de Casamentos -->
       <section class="mb-12">
@@ -179,27 +176,22 @@
             />
             <div class="p-4">
               <h3 class="text-lg font-semibold mb-2">Casamentos</h3>
-              <p class="text-sm text-gray-600 mb-2">
-                Faça seu orçamento! • Rojo Gastronomia
-              </p>
+              <p class="text-sm text-gray-600 mb-2">Faça seu orçamento!</p>
               <button
                 onclick="showMenu(this)"
                 class="w-full bg-primary text-white py-2 px-4 rounded-button hover:bg-opacity-90 transition-colors"
               >
-                Ver Cardápio
+                Ver Propósta
               </button>
             </div>
           </div>
         </div>
       </section>
       <script>
-
         function showEventDetails(img) {
-
           const eventModal = document.createElement("div");
 
           eventModal.className =
-
             "modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50";
 
           eventModal.innerHTML = `
@@ -359,22 +351,14 @@ Ver Cardápio
           document.body.appendChild(eventModal);
 
           eventModal.addEventListener("click", (e) => {
-
             if (e.target === eventModal) {
-
               eventModal.remove();
-
             }
-
           });
-
         }
-
       </script>
-
-
     </main>
-    
+
     <div
       id="loginModal"
       class="modal fixed inset-0 bg-black bg-opacity-50 flex hidden items-center justify-center z-50"
@@ -1177,238 +1161,259 @@ Sair
         const menuModal = document.createElement("div");
         menuModal.className =
           "modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50";
+
         const eventTitle =
           button.closest(".p-4")?.querySelector("h3")?.textContent ||
           button.closest(".bg-white")?.querySelector("h2")?.textContent;
-        if (eventTitle.includes("Casamento")) {
-          menuModal.innerHTML = `
-<div class="bg-white rounded-lg p-8 max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto">
-<div class="flex justify-between items-center mb-6">
-<h2 class="text-2xl font-semibold">Cardápio de Casamento - ${eventTitle}</h2>
-<button class="text-gray-400 hover:text-gray-600" onclick="this.closest('.modal').remove()">
-<div class="w-6 h-6 flex items-center justify-center">
-<i class="ri-close-line"></i>
-</div>
-</button>
-</div>
-<div class="space-y-8">
-<div>
-<h3 class="text-lg font-semibold mb-3">Menu de Recepção</h3>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-<div class="p-4 border rounded-lg">
-<div class="flex justify-between items-start mb-2">
-<span class="font-medium">Coquetel Clássico</span>
-<span class="text-primary">R$ 55/pessoa</span>
-</div>
-<ul class="text-sm text-gray-600 space-y-1">
-<li>• Canapés variados (8 tipos)</li>
-<li>• Finger foods quentes (6 tipos)</li>
-<li>• Ilha de queijos e frios</li>
-<li>• Sucos naturais e refrigerantes</li>
-<li>• Água mineral e gelo</li>
-</ul>
-<button onclick="addToCart('${eventTitle}', 'Coquetel Clássico', 55)" class="mt-3 w-full bg-primary text-white py-2 px-4 rounded-button hover:bg-opacity-90 transition-colors">Adicionar ao Carrinho</button>
-</div>
-<div class="p-4 border rounded-lg">
-<div class="flex justify-between items-start mb-2">
-<span class="font-medium">Coquetel Premium</span>
-<span class="text-primary">R$ 85/pessoa</span>
-</div>
-<ul class="text-sm text-gray-600 space-y-1">
-<li>• Canapés gourmet (12 tipos)</li>
-<li>• Finger foods especiais (8 tipos)</li>
-<li>• Ilha de queijos importados</li>
-<li>• Estação de sushis</li>
-<li>• Bebidas premium não alcoólicas</li>
-</ul>
-<button onclick="addToCart('${eventTitle}', 'Coquetel Premium', 85)" class="mt-3 w-full bg-primary text-white py-2 px-4 rounded-button hover:bg-opacity-90 transition-colors">Adicionar ao Carrinho</button>
-</div>
-</div>
-</div>
-<div>
-<h3 class="text-lg font-semibold mb-3">Jantar</h3>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-<div class="p-4 border rounded-lg">
-<div class="flex justify-between items-start mb-2">
-<span class="font-medium">Menu Tradicional</span>
-<span class="text-primary">R$ 120/pessoa</span>
-</div>
-<ul class="text-sm text-gray-600 space-y-1">
-<li>• Entrada: Salada gourmet com mix de folhas e molho especial</li>
-<li>• Principal: Filé mignon ao molho madeira ou Salmão grelhado</li>
-<li>• Guarnições: Arroz à piamontese, Batatas assadas, Legumes na manteiga</li>
-<li>• Mesa de antepastos</li>
-<li>• Serviço à francesa</li>
-</ul>
-<button onclick="addToCart('${eventTitle}', 'Jantar Tradicional', 120)" class="mt-3 w-full bg-primary text-white py-2 px-4 rounded-button hover:bg-opacity-90 transition-colors">Adicionar ao Carrinho</button>
-</div>
-<div class="p-4 border rounded-lg">
-<div class="flex justify-between items-start mb-2">
-<span class="font-medium">Menu Luxo</span>
-<span class="text-primary">R$ 180/pessoa</span>
-</div>
-<ul class="text-sm text-gray-600 space-y-1">
-<li>• Entrada: Trio de entradas (carpaccio, camarão e salada)</li>
-<li>• Principal: Medalhão de filé com foie gras ou Robalo ao molho de champagne</li>
-<li>• Guarnições: Risoto de funghi, Legumes grelhados, Batata dauphinoise</li>
-<li>• Estação live cooking de massas</li>
-<li>• Serviço à francesa com louça especial</li>
-</ul>
-<button onclick="addToCart('${eventTitle}', 'Jantar Luxo', 180)" class="mt-3 w-full bg-primary text-white py-2 px-4 rounded-button hover:bg-opacity-90 transition-colors">Adicionar ao Carrinho</button>
-</div>
-</div>
-</div>
-<div>
-<h3 class="text-lg font-semibold mb-3">Sobremesas</h3>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-<div class="p-4 border rounded-lg">
-<div class="flex justify-between items-start mb-2">
-<span class="font-medium">Mesa de Doces Clássica</span>
-<span class="text-primary">R$ 45/pessoa</span>
-</div>
-<ul class="text-sm text-gray-600 space-y-1">
-<li>• 8 tipos de doces finos</li>
-<li>• Bolo de casamento tradicional</li>
-<li>• Café e petit fours</li>
-<li>• Mesa de frutas decorada</li>
-</ul>
-<button onclick="addToCart('${eventTitle}', 'Sobremesas Clássicas', 45)" class="mt-3 w-full bg-primary text-white py-2 px-4 rounded-button hover:bg-opacity-90 transition-colors">Adicionar ao Carrinho</button>
-</div>
-<div class="p-4 border rounded-lg">
-<div class="flex justify-between items-start mb-2">
-<span class="font-medium">Mesa de Doces Premium</span>
-<span class="text-primary">R$ 75/pessoa</span>
-</div>
-<ul class="text-sm text-gray-600 space-y-1">
-<li>• 12 tipos de doces gourmet</li>
-<li>• Bolo de casamento personalizado</li>
-<li>• Estação de sorvetes e chocolates</li>
-<li>• Mesa de frutas exóticas</li>
-<li>• Café especial e licores</li>
-</ul>
-<button onclick="addToCart('${eventTitle}', 'Sobremesas Premium', 75)" class="mt-3 w-full bg-primary text-white py-2 px-4 rounded-button hover:bg-opacity-90 transition-colors">Adicionar ao Carrinho</button>
-</div>
-</div>
-</div>
-<div>
-<h3 class="text-lg font-semibold mb-3">Bebidas</h3>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-<div class="p-4 border rounded-lg">
-<div class="flex justify-between items-start mb-2">
-<span class="font-medium">Pacote de Bebidas Clássico</span>
-<span class="text-primary">R$ 65/pessoa</span>
-</div>
-<ul class="text-sm text-gray-600 space-y-1">
-<li>• Whisky 8 anos</li>
-<li>• Espumante nacional</li>
-<li>• Vinho tinto e branco</li>
-<li>• Cerveja premium</li>
-<li>• Coquetéis clássicos</li>
-<li>• Refrigerantes e sucos</li>
-</ul>
-<button onclick="addToCart('${eventTitle}', 'Bebidas Clássicas', 65)" class="mt-3 w-full bg-primary text-white py-2 px-4 rounded-button hover:bg-opacity-90 transition-colors">Adicionar ao Carrinho</button>
-</div>
-<div class="p-4 border rounded-lg">
-<div class="flex justify-between items-start mb-2">
-<span class="font-medium">Pacote de Bebidas Premium</span>
-<span class="text-primary">R$ 95/pessoa</span>
-</div>
-<ul class="text-sm text-gray-600 space-y-1">
-<li>• Whisky 12 anos</li>
-<li>• Champagne francesa</li>
-<li>• Vinhos importados selecionados</li>
-<li>• Cervejas artesanais</li>
-<li>• Bar de gin tônica</li>
-<li>• Coquetéis especiais</li>
-<li>• Bebidas premium não alcoólicas</li>
-</ul>
-<button onclick="addToCart('${eventTitle}', 'Bebidas Premium', 95)" class="mt-3 w-full bg-primary text-white py-2 px-4 rounded-button hover:bg-opacity-90 transition-colors">Adicionar ao Carrinho</button>
-</div>
-</div>
-</div>
-</div>
-</div>
-`;
-        } else {
+
+        if (eventTitle.includes("Coffee Break")) {
           menuModal.innerHTML = `
 <div class="bg-white rounded-lg p-8 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-2xl font-semibold">Cardápio - ${eventTitle}</h2>
+    <button class="text-gray-400 hover:text-gray-600" onclick="this.closest('.modal').remove()">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-close-line"></i>
+      </div>
+    </button>
+  </div>
+  <div class="space-y-6">
+    <div>
+      <h3 class="text-lg font-semibold mb-3">Opções para Coffee Break</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="p-4 border rounded-lg">
+          <div class="flex justify-between items-start mb-2">
+            <span class="font-medium">Coffee Break Básico</span>
+            <span class="text-primary">R$ 44 por Pessoa</span>
+          </div>
+          <ul class="text-sm text-gray-600 space-y-1">
+            <li>• Água</li>
+            <li>• Chás Variados</li>
+            <li>• Petit Four Rojo</li>
+          </ul>
+          <button onclick="addToCart('${eventTitle}', 'Coffee Break Básico', 44)" class="mt-3 w-full bg-primary text-white py-2 px-4 rounded-button hover:bg-opacity-90 transition-colors">Adicionar ao Carrinho</button>
+        </div>
+        <div class="p-4 border rounded-lg">
+          <div class="flex justify-between items-start mb-2">
+            <span class="font-medium">Coffee Break Premium</span>
+            <span class="text-primary">R$ 116 por Pessoa</span>
+          </div>
+          <ul class="text-sm text-gray-600 space-y-1">
+            <li>• Bebidas</li>
+            <li>• Snacks</li>
+            <li>• Mini-Sanduíches</li>
+            <li>• Bolos</li>
+            <li>• Sobremesas</li>
+          </ul>
+          <button onclick="addToCart('${eventTitle}', 'Coffee Break Premium', 116)" class="mt-3 w-full bg-primary text-white py-2 px-4 rounded-button hover:bg-opacity-90 transition-colors">Adicionar ao Carrinho</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+        } else if (eventTitle.includes("Almoço")) {
+          menuModal.innerHTML = `
+<div class="bg-white rounded-lg p-8 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-2xl font-semibold">Cardápio - ${eventTitle}</h2>
+    <button class="text-gray-400 hover:text-gray-600" onclick="this.closest('.modal').remove()">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-close-line"></i>
+      </div>
+    </button>
+  </div>
+  <div class="space-y-6">
+    <div>
+      <h3 class="text-lg font-semibold mb-3">Opções para Almoço</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="p-4 border rounded-lg">
+          <div class="flex justify-between items-start mb-2">
+            <span class="font-medium">Almoço Executivo</span>
+            <span class="text-primary">R$ 60 por Pessoa</span>
+          </div>
+          <ul class="text-sm text-gray-600 space-y-1">
+            <li>• Salada Caesar</li>
+            <li>• Filé de Frango Grelhado</li>
+            <li>• Arroz Integral</li>
+            <li>• Feijão Tropeiro</li>
+            <li>• Sobremesa</li>
+          </ul>
+          <button onclick="addToCart('${eventTitle}', 'Almoço Executivo', 60)" class="mt-3 w-full bg-primary text-white py-2 px-4 rounded-button hover:bg-opacity-90 transition-colors">Adicionar ao Carrinho</button>
+        </div>
+        <div class="p-4 border rounded-lg">
+          <div class="flex justify-between items-start mb-2">
+            <span class="font-medium">Almoço Premium</span>
+            <span class="text-primary">R$ 90 por Pessoa</span>
+          </div>
+          <ul class="text-sm text-gray-600 space-y-1">
+            <li>• Salada Mediterrânea</li>
+            <li>• Filé Mignon ao Molho Madeira</li>
+            <li>• Risoto de Cogumelos</li>
+            <li>• Legumes Grelhados</li>
+            <li>• Sobremesa Gourmet</li>
+          </ul>
+          <button onclick="addToCart('${eventTitle}', 'Almoço Premium', 90)" class="mt-3 w-full bg-primary text-white py-2 px-4 rounded-button hover:bg-opacity-90 transition-colors">Adicionar ao Carrinho</button>
+        </div>
+        
+      </div>
+      
+    </div>
+  </div>
+</div>
+`;
+        } else if (eventTitle.includes("Casamento")) {
+          menuModal.innerHTML = `
+          <div class="bg-white rounded-lg p-8 max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+
 <div class="flex justify-between items-center mb-6">
-<h2 class="text-2xl font-semibold">Cardápio - ${eventTitle}</h2>
-<button class="text-gray-400 hover:text-gray-600" onclick="this.closest('.modal').remove()">
+
+<h2 class="text-2xl font-semibold text-gray-800">Casamentos</h2>
+
+<button onclick="this.closest('.modal').remove()" class="text-gray-400 hover:text-gray-600">
+
 <div class="w-6 h-6 flex items-center justify-center">
+
 <i class="ri-close-line"></i>
+
 </div>
+
 </button>
+
 </div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+<div>
+
+<div class="space-y-4">
+
+<div>
+
+<h3 class="text-lg font-medium text-gray-800 mb-2">Data e Horário</h3>
+
+<p class="text-gray-600">Data • Horário - a combinar</p>
+
+</div>
+
+<div>
+
+<h3 class="text-lg font-medium text-gray-800 mb-2">Local</h3>
+
+<p class="text-gray-600">Villa Verde</p>
+
+<p class="text-gray-600">Rua das Flores, 1000 - Jardins</p>
+
+<p class="text-gray-600">São Paulo - SP</p>
+
+</div>
+
+<div>
+
+<h3 class="text-lg font-medium text-gray-800 mb-2">Capacidade</h3>
+
+<p class="text-gray-600">Mínimo: 100 convidados</p>
+
+<p class="text-gray-600">Máximo: 1000 convidados</p>
+
+</div>
+
+<div>
+
+<h3 class="text-lg font-medium text-gray-800 mb-2">Estrutura</h3>
+
+<ul class="text-gray-600 space-y-1">
+
+<li>• Salão principal climatizado</li>
+
+<li>• Área externa para cerimônia</li>
+
+<li>• Jardim para fotos</li>
+
+<li>• Estacionamento com manobrista</li>
+
+<li>• Gerador próprio</li>
+
+<li>• Cozinha industrial completa</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
 <div class="space-y-6">
+
 <div>
-<h3 class="text-lg font-semibold mb-3">Coffee Break</h3>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-<div class="p-4 border rounded-lg">
-<div class="flex justify-between items-start mb-2">
-<span class="font-medium">Opção Básica</span>
-<span class="text-primary">R$ 30/pessoa</span>
+
+<h3 class="text-lg font-medium text-gray-800 mb-4">Sujestões de Decorações</h3>
+
+<div class="grid grid-cols-2 gap-4">
+
+<img src="https://public.readdy.ai/ai/img_res/58d6c9f211a2f9a36298b7915c36b126.jpg" class="w-full h-32 object-cover rounded-lg" alt="Salão">
+
+<img src="https://public.readdy.ai/ai/img_res/56aa646c0324a2dd443e772ce1d10eb2.jpg" class="w-full h-32 object-cover rounded-lg" alt="Cerimônia">
+
+<img src="https://public.readdy.ai/ai/img_res/d93dc762630a4ccf479e27acba12dbd1.jpg" class="w-full h-32 object-cover rounded-lg" alt="Jardim">
+
+<img src="https://public.readdy.ai/ai/img_res/ceb322565e0922a226caa43e2526f4a1.jpg" class="w-full h-32 object-cover rounded-lg" alt="Decoração">
+
 </div>
-<ul class="text-sm text-gray-600 space-y-1">
-<li>• Café e chás</li>
-<li>• Água e sucos naturais</li>
-<li>• Mini pães e croissants</li>
-<li>• Bolos variados</li>
-</ul>
-<button onclick="addToCart('${eventTitle}', 'Coffee Break Básico', 30)" class="mt-3 w-full bg-primary text-white py-2 px-4 rounded-button hover:bg-opacity-90 transition-colors">Adicionar ao Carrinho</button>
+
 </div>
-<div class="p-4 border rounded-lg">
-<div class="flex justify-between items-start mb-2">
-<span class="font-medium">Opção Premium</span>
-<span class="text-primary">R$ 45/pessoa</span>
-</div>
-<ul class="text-sm text-gray-600 space-y-1">
-<li>• Café premium e chás especiais</li>
-<li>• Água, sucos e refrigerantes</li>
-<li>• Salgados finos</li>
-<li>• Doces gourmet</li>
-<li>• Frutas frescas</li>
-</ul>
-<button onclick="addToCart('${eventTitle}', 'Coffee Break Premium', 45)" class="mt-3 w-full bg-primary text-white py-2 px-4 rounded-button hover:bg-opacity-90 transition-colors">Adicionar ao Carrinho</button>
-</div>
-</div>
-</div>
+
 <div>
-<h3 class="text-lg font-semibold mb-3">Almoço/Jantar</h3>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-<div class="p-4 border rounded-lg">
-<div class="flex justify-between items-start mb-2">
-<span class="font-medium">Menu Executivo</span>
-<span class="text-primary">R$ 70/pessoa</span>
+
+<h3 class="text-lg font-medium text-gray-800 mb-4">Sujestão de Decoração</h3>
+
+<div class="space-y-3">
+
+<div class="p-4 border rounded-lg hover:border-primary transition-colors">
+
+<h4 class="font-medium text-gray-800 mb-2">Clássico Romântico</h4>
+
+<p class="text-sm text-gray-600">Decoração em tons de branco e verde com flores naturais, velas e cristais</p>
+
 </div>
-<ul class="text-sm text-gray-600 space-y-1">
-<li>• Entrada: Saladas variadas</li>
-<li>• Prato principal: 2 opções de carnes</li>
-<li>• 3 acompanhamentos</li>
-<li>• Sobremesa</li>
-<li>• Bebidas não alcoólicas</li>
-</ul>
-<button onclick="addToCart('${eventTitle}', 'Menu Executivo', 70)" class="mt-3 w-full bg-primary text-white py-2 px-4 rounded-button hover:bg-opacity-90 transition-colors">Adicionar ao Carrinho</button>
+
+<div class="p-4 border rounded-lg hover:border-primary transition-colors">
+
+<h4 class="font-medium text-gray-800 mb-2">Moderno Elegante</h4>
+
+<p class="text-sm text-gray-600">Design minimalista com arranjos modernos e iluminação especial</p>
+
 </div>
-<div class="p-4 border rounded-lg">
-<div class="flex justify-between items-start mb-2">
-<span class="font-medium">Menu Premium</span>
-<span class="text-primary">R$ 95/pessoa</span>
+
+<div class="p-4 border rounded-lg hover:border-primary transition-colors">
+
+<h4 class="font-medium text-gray-800 mb-2">Luxo Total</h4>
+
+<p class="text-sm text-gray-600">Decoração premium com flores importadas e móveis especiais</p>
+
 </div>
-<ul class="text-sm text-gray-600 space-y-1">
-<li>• Entradas quentes e frias</li>
-<li>• 3 opções de pratos principais</li>
-<li>• 5 acompanhamentos</li>
-<li>• Sobremesas variadas</li>
-<li>• Bebidas premium</li>
-<li>• Serviço de café</li>
-</ul>
-<button onclick="addToCart('${eventTitle}', 'Menu Premium', 95)" class="mt-3 w-full bg-primary text-white py-2 px-4 rounded-button hover:bg-opacity-90 transition-colors">Adicionar ao Carrinho</button>
+
 </div>
+
 </div>
+
 </div>
+
 </div>
+
+<div class="mt-8 flex justify-end">
+
+<button onclick="showMenu(this)" class="bg-primary text-white px-8 py-3 rounded-button hover:bg-opacity-90 transition-colors font-medium whitespace-nowrap">
+
+Fale com Nosso Consultor
+
+</button>
+
 </div>
+
+</div>
+
 `;
         }
         document.body.appendChild(menuModal);
@@ -1420,25 +1425,137 @@ Sair
       }
       function addToCart(eventTitle, menuType, pricePerPerson) {
         const menuItems = {
-          "Coffee Break Básico": [
-            { name: "Café", price: 5 },
-            { name: "Chás", price: 4 },
-            { name: "Água", price: 3 },
-            { name: "Sucos naturais", price: 6 },
-            { name: "Mini pães", price: 4 },
-            { name: "Croissants", price: 5 },
-            { name: "Bolos variados", price: 7 },
-          ],
-          "Coffee Break Premium": [
-            { name: "Café premium", price: 8 },
-            { name: "Chás especiais", price: 6 },
-            { name: "Água", price: 3 },
-            { name: "Sucos naturais", price: 6 },
-            { name: "Refrigerantes", price: 5 },
-            { name: "Salgados finos", price: 8 },
-            { name: "Doces gourmet", price: 9 },
-            { name: "Frutas frescas", price: 7 },
-          ],
+          "Coffee Break Básico": {
+            Fixos: [
+              { name: "Café", price: 0 },
+              { name: "Chás", price: 0 },
+              { name: "Água", price: 0 },
+            ],
+            Snacks: [{ name: "Petit Four Rojo", price: 0 }],
+          },
+          "Coffee Break Premium": {
+            Fixos: [
+              { name: "Água Sem Gás", price: 0 },
+              { name: "Café Coado", price: 0 },
+              { name: "Leite Integral", price: 0 },
+              { name: "Chás Variados", price: 0 },
+              { name: "Chocolate em Pó", price: 0 },
+              { name: "Frutas da Estação", price: 0 },
+              { name: "Iogurte", price: 0 },
+              { name: "Granola", price: 0 },
+            ],
+            Bebidas: [
+              {
+                name: "Água Aromatizada de Laranja com Manjericão e Miniflores",
+                price: 0,
+              },
+              {
+                name: "Água Aromatizada de Limão Siciliano, Hortelã e Manjericão Verde",
+                price: 0,
+              },
+              {
+                name: "Água Aromatizada de Alecrim, Limão Taiti e Manjericão Verde",
+                price: 0,
+              },
+              {
+                name: "Água Aromatizada de Limão com Manjericão Roxo",
+                price: 0,
+              },
+              { name: "Suco Uva com Canela", price: 0 },
+              { name: "Pink Lemonade", price: 0 },
+              { name: "Iced Tea Pêssego", price: 0 },
+              { name: "Iced Tea Limão", price: 0 },
+              { name: "Suco de Laranja", price: 0 },
+              { name: "Suco de Abacaxi", price: 0 },
+              { name: "Suco de Uva", price: 0 },
+              { name: "Suco de Limão", price: 0 },
+              { name: "Suco Laranja com Acerola", price: 0 },
+              {
+                name: "Suco Verde Detox (Maçã, Limão, Gengibre, Couve, Espinafre, Capim Santo)",
+                price: 0,
+              },
+              { name: "Suco Maracujá com Manjericão", price: 0 },
+              { name: "Suco Laranja com Morango", price: 0 },
+              { name: "Suco Abacaxi com Hortelã", price: 0 },
+            ],
+            Snacks: [
+              { name: "Esfiha de Queijo", price: 0 },
+              { name: "Esfiha de Ricota", price: 0 },
+              { name: "Esfiha de Carne", price: 0 },
+              { name: "Minifolhado de Calabresa Rojo", price: 0 },
+              { name: "Folhado Tomate Seco", price: 0 },
+              { name: "Pão Delícia de Azeitonas", price: 0 },
+              { name: "Minipão de Mandioquinha com Catupiry", price: 0 },
+              {
+                name: "Minienroladinho de Queijo com Linguiça Toscana",
+                price: 0,
+              },
+              { name: "Minicroissant Peito de Peru e Queijo", price: 0 },
+              { name: "Mini Coxinha Cremosa", price: 0 },
+              { name: "Miniquiche de Alho Poró Rojo", price: 0 },
+              { name: "Miniquiche Lorraine Rojo", price: 0 },
+              { name: "Miniquiche de Palmito Rojo", price: 0 },
+              { name: "Mini Pão de Queijo com Catupiry", price: 0 },
+              {
+                name: "Sanduíche Pastrami, Cebola Caramelizada e Cheddar Mini",
+                price: 0,
+              },
+              {
+                name: "Sanduíche Alho Poró Caramelizado com Nuts Mini",
+                price: 0,
+              },
+              {
+                name: "Sanduíche Queijo Emmental com Lombo Canadense e Cream Cheese com Limão Mini",
+                price: 0,
+              },
+              {
+                name: "Sanduíche Creme de Tomate Seco com Abobrinha Confitada Mini",
+                price: 0,
+              },
+              {
+                name: "Sanduíche Frango, Requeijão e Chia com Cenoura Laminada Mini",
+                price: 0,
+              },
+              {
+                name: "Sanduíche Queijos Cremosos com Tomate, Azeite, Orégano Mini",
+                price: 0,
+              },
+              {
+                name: "Sanduíche Salame Hamburguês com Queijo e Cream Cheese de Ervas",
+                price: 0,
+              },
+            ],
+            Bolos: [
+              {
+                name: "Bolo de Cenoura Gluten Free com Calda de Chocolate 80%",
+                price: 0,
+              },
+              {
+                name: "Bolo de Cenoura com Cobertura de Chocolate Trufado",
+                price: 0,
+              },
+              { name: "Bolo de Chocolate com Ganache", price: 0 },
+              { name: "Bolo de Fubá com Goiabada", price: 0 },
+              { name: "Bolo de Milho Cremoso", price: 0 },
+              { name: "Bolo de Prestígio", price: 0 },
+              { name: "Bolo de Fubá", price: 0 },
+              { name: "Bolo de Coco", price: 0 },
+              { name: "Cuca de Banana", price: 0 },
+              { name: "Muffin de Blueberry", price: 0 },
+              { name: "Pudim de Leite", price: 0 },
+              { name: "Pudim de Coco", price: 0 },
+              { name: "Pudim de Pistache", price: 0 },
+              { name: "Brownie de Chocolate", price: 0 },
+              {
+                name: "Verrine de Brownie com Ganache e Coulis de Frutas Vermelhas",
+                price: 0,
+              },
+              {
+                name: "Verrine Charge (Mousse de Chocolate, Caramelo Salgado e Amendoim)",
+                price: 0,
+              },
+            ],
+          },
           "Menu Executivo": [
             { name: "Saladas variadas", price: 12 },
             { name: "Filé mignon", price: 35 },
@@ -1465,139 +1582,140 @@ Sair
             { name: "Café especial", price: 8 },
           ],
         };
+
         const items = menuItems[menuType];
         const quantityModal = document.createElement("div");
         quantityModal.className =
           "modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50";
         quantityModal.innerHTML = `
-<div class="bg-white rounded-lg p-6 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
-<div class="flex justify-between items-center mb-6">
-<h3 class="text-xl font-semibold">${eventTitle} - ${menuType}</h3>
-<button onclick="this.closest('.modal').remove()" class="text-gray-400 hover:text-gray-600">
-<div class="w-6 h-6 flex items-center justify-center">
-<i class="ri-close-line"></i>
-</div>
-</button>
-</div>
-<div class="grid grid-cols-1 gap-6">
-<div class="bg-gray-50 p-4 rounded-lg">
-<label class="block text-sm font-medium text-gray-700 mb-2">Número de pessoas</label>
-<div class="flex items-center space-x-3">
-<button onclick="adjustPersonCount(-10)" class="w-8 h-8 flex items-center justify-center text-gray-600 hover:text-primary border rounded-full">
-<i class="ri-subtract-line"></i>
-</button>
-<input type="number" min="10" value="50" class="w-24 text-center px-3 py-2 border border-gray-300 rounded-button focus:outline-none focus:border-primary" id="personCount" onchange="updateMenuTotal()">
-<button onclick="adjustPersonCount(10)" class="w-8 h-8 flex items-center justify-center text-gray-600 hover:text-primary border rounded-full">
-<i class="ri-add-line"></i>
-</button>
-<span class="text-sm text-gray-500 ml-3">Mínimo: 10 pessoas</span>
-</div>
-</div>
-<div class="space-y-4">
-<h4 class="font-medium text-gray-900">Itens do cardápio</h4>
-${items
-  .map(
-    (item, index) => `
-<div class="flex items-center justify-between p-4 border rounded-lg bg-white hover:border-primary transition-colors">
-<div class="flex-1">
-<span class="font-medium text-gray-900">${item.name}</span>
-<div class="text-sm text-gray-500">R$ ${item.price.toFixed(2)}/pessoa</div>
-</div>
-<div class="flex items-center space-x-3">
-<button onclick="decrementQuantity(${index})" class="w-8 h-8 flex items-center justify-center text-gray-600 hover:text-primary border rounded-full transition-colors">
-<i class="ri-subtract-line"></i>
-</button>
-<input type="number" min="0" value="0" class="w-16 text-center px-2 py-1 border rounded-button focus:outline-none focus:border-primary item-quantity" data-index="${index}" onchange="updateMenuTotal()">
-<button onclick="incrementQuantity(${index})" class="w-8 h-8 flex items-center justify-center text-gray-600 hover:text-primary border rounded-full transition-colors">
-<i class="ri-add-line"></i>
-</button>
-</div>
-</div>
-`
-  )
-  .join("")}
-</div>
-<div class="sticky bottom-0 bg-white border-t pt-4 mt-6">
-<div class="flex justify-between items-center font-semibold text-lg mb-4">
-<span>Total:</span>
-<span id="menuTotal" class="text-primary">R$ 0,00</span>
-</div>
-<div class="flex justify-end space-x-3">
-<button onclick="this.closest('.modal').remove()" class="px-6 py-2 text-gray-600 hover:text-gray-800 font-medium">Cancelar</button>
-<button onclick="confirmAddToCart('${eventTitle}', '${menuType}', ${JSON.stringify(
+    <div class="bg-white rounded-lg p-6 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center mb-6">
+        <h3 class="text-xl font-semibold">${eventTitle} - ${menuType}</h3>
+        <button onclick="this.closest('.modal').remove()" class="text-gray-400 hover:text-gray-600">
+          <div class="w-6 h-6 flex items-center justify-center">
+            <i class="ri-close-line"></i>
+          </div>
+        </button>
+      </div>
+      <div class="grid grid-cols-1 gap-6">
+        <div class="bg-gray-50 p-4 rounded-lg">
+          <label class="block text-sm font-medium text-gray-700 mb-2">Número de pessoas</label>
+          <div class="flex items-center space-x-3">
+            <button onclick="adjustPersonCount(-10)" class="w-8 h-8 flex items-center justify-center text-gray-600 hover:text-primary border rounded-full">
+              <i class="ri-subtract-line"></i>
+            </button>
+            <input type="number" min="10" value="50" class="w-24 text-center px-3 py-2 border border-gray-300 rounded-button focus:outline-none focus:border-primary" id="personCount" onchange="updateMenuTotal()">
+            <button onclick="adjustPersonCount(10)" class="w-8 h-8 flex items-center justify-center text-gray-600 hover:text-primary border rounded-full">
+              <i class="ri-add-line"></i>
+            </button>
+            <span class="text-sm text-gray-500 ml-3">Mínimo: 10 pessoas</span>
+          </div>
+        </div>
+        <div class="space-y-4">
+          <div class="flex space-x-4 mb-4">
+            ${Object.keys(items)
+              .map(
+                (category) => `
+                  <button onclick="showCategoryItems('${category}')" class="flex-1 py-2 px-4 rounded-button border text-center category-tab" data-category="${category}">
+                    ${category}
+                  </button>
+                `
+              )
+              .join("")}
+          </div>
+          ${Object.keys(items)
+            .map(
+              (category) => `
+                <div id="${category}" class="category-items hidden">
+                  <h4 class="font-medium text-gray-900">${category}</h4>
+                  ${items[category]
+                    .map(
+                      (item, index) => `
+                        <div class="flex items-center justify-between p-4 border rounded-lg bg-white hover:border-primary transition-colors">
+                          <div class="flex-1">
+                            <span class="font-medium text-gray-900">${
+                              item.name
+                            }</span>
+                            <div class="text-sm text-gray-500">R$ ${item.price.toFixed(
+                              2
+                            )}/pessoa</div>
+                          </div>
+                          <div class="flex items-center space-x-3">
+                            <button onclick="decrementQuantity(${index})" class="w-8 h-8 flex items-center justify-center text-gray-600 hover:text-primary border rounded-full transition-colors">
+                              <i class="ri-subtract-line"></i>
+                            </button>
+                            <input type="number" min="0" value="0" class="w-16 text-center px-2 py-1 border rounded-button focus:outline-none focus:border-primary item-quantity" data-index="${index}" data-category="${category}" onchange="updateMenuTotal()">
+                            <button onclick="incrementQuantity(${index})" class="w-8 h-8 flex items-center justify-center text-gray-600 hover:text-primary border rounded-full transition-colors">
+                              <i class="ri-add-line"></i>
+                            </button>
+                          </div>
+                        </div>
+                      `
+                    )
+                    .join("")}
+                </div>
+              `
+            )
+            .join("")}
+        </div>
+        <div class="sticky bottom-0 bg-white border-t pt-4 mt-6">
+          <div class="flex justify-between items-center font-semibold text-lg mb-4">
+            <span>Total:</span>
+            <span id="menuTotal" class="text-primary">R$ 0,00</span>
+          </div>
+          <div class="flex justify-end space-x-3">
+            <button onclick="this.closest('.modal').remove()" class="px-6 py-2 text-gray-600 hover:text-gray-800 font-medium">Cancelar</button>
+            <button onclick="confirmAddToCart('${eventTitle}', '${menuType}', ${JSON.stringify(
           items
         ).replace(
           /"/g,
           "&quot;"
         )})" class="bg-primary text-white px-6 py-2 rounded-button hover:bg-opacity-90 font-medium">Adicionar ao carrinho</button>
-</div>
-</div>
-</div>
-`;
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
         document.body.appendChild(quantityModal);
         quantityModal.addEventListener("click", (e) => {
           if (e.target === quantityModal) {
             quantityModal.remove();
           }
         });
+
         // Add event listeners for quantity changes
         document.querySelectorAll(".item-quantity").forEach((input) => {
           input.addEventListener("change", updateMenuTotal);
           input.addEventListener("input", updateMenuTotal);
         });
+
+        // Show the first category by default
+        const firstCategory = Object.keys(items)[0];
+        showCategoryItems(firstCategory);
         updateMenuTotal();
       }
-      function adjustPersonCount(change) {
-        const input = document.getElementById("personCount");
-        let newValue = parseInt(input.value) + change;
-        if (newValue < 10) newValue = 10;
-        input.value = newValue;
-        updateMenuTotal();
-      }
-      function incrementQuantity(index) {
-        const input = document.querySelector(
-          `.item-quantity[data-index="${index}"]`
-        );
-        input.value = parseInt(input.value) + 1;
-        updateMenuTotal();
-      }
-      function decrementQuantity(index) {
-        const input = document.querySelector(
-          `.item-quantity[data-index="${index}"]`
-        );
-        if (parseInt(input.value) > 0) {
-          input.value = parseInt(input.value) - 1;
-          updateMenuTotal();
+
+      function showCategoryItems(category) {
+        // Hide all category items
+        document.querySelectorAll(".category-items").forEach((el) => {
+          el.classList.add("hidden");
+        });
+
+        // Show the selected category items
+        const selectedCategory = document.getElementById(category);
+        if (selectedCategory) {
+          selectedCategory.classList.remove("hidden");
         }
+
+        // Highlight the selected tab
+        document.querySelectorAll(".category-tab").forEach((tab) => {
+          tab.classList.remove("bg-primary", "text-white");
+          if (tab.dataset.category === category) {
+            tab.classList.add("bg-primary", "text-white");
+          }
+        });
       }
-      function updateMenuTotal() {
-        const personCount =
-          parseInt(document.getElementById("personCount").value) || 0;
-        const quantities = Array.from(
-          document.querySelectorAll(".item-quantity")
-        ).map((input) => parseInt(input.value) || 0);
-        const items = document.querySelectorAll(".item-quantity").length;
-        let total = 0;
-        for (let i = 0; i < items; i++) {
-          const itemPrice = parseFloat(
-            document
-              .querySelectorAll(".item-quantity")
-              [i].closest(".flex")
-              .querySelector(".text-gray-500")
-              .textContent.replace("R$ ", "")
-          );
-          total += itemPrice * quantities[i] * personCount;
-        }
-        document.getElementById("menuTotal").textContent = `R$ ${total.toFixed(
-          2
-        )}`;
-      }
-      document.body.appendChild(quantityModal);
-      quantityModal.addEventListener("click", (e) => {
-        if (e.target === quantityModal) {
-          quantityModal.remove();
-        }
-      });
 
       function confirmAddToCart(eventTitle, menuType, items) {
         const quantity = parseInt(document.getElementById("personCount").value);

@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardápio Eventos - Microsoft</title>
+    <style>
+        :root {
+            --primary: #0078d4;
+            --secondary: #106ebe;
+            --light: #f3f2f1;
+            --dark: #201f1e;
+            --success: #107c10;
+            --white: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .events-section {
+            margin-bottom: 2rem;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.5rem;
+        }
+        
+        .event-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .event-card {
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .event-image {
+            height: 180px;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .event-info {
+            padding: 1.5rem;
+        }
+        
+        .event-title {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .event-description {
+            color: #605e5c;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            background: var(--secondary);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 100;
+            overflow-y: auto;
+        }
+        
+        .modal-content {
+            background: var(--white);
+            border-radius: 8px;
+            width: 90%;
+            max-width: 800px;
+            margin: 2rem auto;
+            position: relative;
+            animation: modalopen 0.3s;
+        }
+        
+        .modal-header {
+            background: var(--primary);
+            color: var(--white);
+            padding: 1rem 1.5rem;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-title {
+            font-size: 1.4rem;
+        }
+        
+        .close-button {
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            color: var(--white);
+            cursor: pointer;
+        }
+        
+        .modal-body {
+            padding: 1.5rem;
+        }
+        
+        .menu-category {
+            margin-bottom: 2rem;
+        }
+        
+        .category-title {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #e1dfdd;
+            padding-bottom: 0.5rem;
+        }
+        
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        
+        .menu-item {
+            background: var(--light);
+            padding: 1rem;
+            border-radius: 6px;
+            border: 1px solid #e1dfdd;
+        }
+        
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+        
+        .item-title {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        
+        .item-price {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .item-description {
+            font-size: 0.85rem;
+            color: #605e5c;
+            margin-bottom: 0.5rem;
+        }
+        
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            margin-top: 0.5rem;
+        }
+        
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            background: var(--light);
+            border: 1px solid #d2d0ce;
+            border-radius: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+        
+        .quantity-btn:hover {
+            background: #e1dfdd;
+        }
+        
+        .quantity-input {
+            width: 40px;
+            height: 30px;
+            text-align: center;
+            border: 1px solid #d2d0ce;
+            margin: 0 0.5rem;
+        }
+        
+        .selected-items {
+            margin-top: 2rem;
+            background: var(--light);
+            padding: 1rem;
+            border-radius: 6px;
+        }
+        
+        .selected-items-title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .selected-items-list {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+        }
+        
+        .selected-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e1dfdd;
+        }
+        
+        .remove-item {
+            color: #d13438;
+            margin-left: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .total-section {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 600;
+            padding-top: 0.5rem;
+        }
+        
+        .modal-footer {
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            border-top: 1px solid #e1dfdd;
+        }
+        
+        .cancel-btn {
+            background: var(--light);
+            color: var(--dark);
+        }
+        
+        .success-message {
+            display: none;
+            background: var(--success);
+            color: var(--white);
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 100;
+            overflow-y: auto;
+        }
+        
+        .cart-modal-content {
+            background: var(--white);
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+            margin: 2rem auto;
+            position: relative;
+            animation: modalopen 0.3s;
+        }
+        
+        .cart-items {
+            padding: 1.5rem;
+        }
+        
+        .cart-event {
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #e1dfdd;
+            padding-bottom: 1rem;
+        }
+        
+        .cart-event-title {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        @keyframes modalopen {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .event-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-content, .cart-modal-content {
+                width: 95%;
+                margin: 1rem auto;
+            }
+            
+            .menu-items {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Cardápio Eventos - Microsoft</div>
+        <button class="btn" id="cart-button">Meu Carrinho (0)</button>
+    </header>
+    
+    <div class="container">
+        <section class="events-section">
+            <h2 class="section-title">Próximos Eventos</h2>
+            <div class="event-cards">
+                <div class="event-card">
+                    <div class="event-image" style="background-image: url('/api/placeholder/400/320')"></div>
+                    <div class="event-info">
+                        <h3 class="event-title">Build Conference 2025</h3>
+                        <p class="event-description">Conferência anual para desenvolvedores Microsoft com foco em tecnologias de ponta.</p>
+                        <button class="btn view-menu" data-event="build2025">Ver Cardápio</button>
+                    </div>
+                </div>
+                
+                <div class="event-card">
+                    <div class="event-image" style="background-image: url('/api/placeholder/400/320')"></div>
+                    <div class="event-info">
+                        <h3 class="event-title">Ignite 2025</h3>
+                        <p class="event-description">Evento de TI e nuvem para profissionais e tomadores de decisão empresarial.</p>
+                        <button class="btn view-menu" data-event="ignite2025">Ver Cardápio</button>
+                    </div>
+                </div>
+                
+                <div class="event-card">
+                    <div class="event-image" style="background-image: url('/api/placeholder/400/320')"></div>
+                    <div class="event-info">
+                        <h3 class="event-title">Tech Summit Brasil</h3>
+                        <p class="event-description">Encontro de tecnologia com workshops, palestras e networking.</p>
+                        <button class="btn view-menu" data-event="techsummit">Ver Cardápio</button>
+                    </div>
+                </div>
+                
+                <div class="event-card">
+                    <div class="event-image" style="background-image: url('/api/placeholder/400/320')"></div>
+                    <div class="event-info">
+                        <h3 class="event-title">Microsoft Education Day</h3>
+                        <p class="event-description">Evento dedicado a educadores e instituições de ensino.</p>
+                        <button class="btn view-menu" data-event="eduday">Ver Cardápio</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <div id="menuModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Cardápio do Evento</h2>
+                <button class="close-button">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="successMessage" class="success-message">
+                    Itens adicionados com sucesso! Obrigado pela sua seleção.
+                </div>
+                
+                <div class="menu-category">
+                    <h3 class="category-title">Entradas</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <div class="item-header">
+                                <h4 class="item-title">Bruschetta de Tomate</h4>
+                                <span class="item-price">R$ 45,00</span>
+                            </div>
+                            <p class="item-description">Fatias de pão italiano com tomate, manjericão e azeite.</p>
+                            <div class="quantity-control">
+                                <button class="quantity-btn minus">-</button>
+                                <input type="number" class="quantity-input" value="0" min="0" data-item="bruschetta" data-price="45" data-category="entrada">
+                                <button class="quantity-btn plus">+</button>
+                            </div>
+                        </div>
+                        
+                        <div class="menu-item">
+                            <div class="item-header">
+                                <h4 class="item-title">Canapés de Salmão</h4>
+                                <span class="item-price">R$ 65,00</span>
+                            </div>
+                            <p class="item-description">Mini torradas com creme de queijo e salmão defumado.</p>
+                            <div class="quantity-control">
+                                <button class="quantity-btn minus">-</button>
+                                <input type="number" class="quantity-input" value="0" min="0" data-item="canape-salmao" data-price="65" data-category="entrada">
+                                <button class="quantity-btn plus">+</button>
+                            </div>
+                        </div>
+                        
+                        <div class="menu-item">
+                            <div class="item-header">
+                                <h4 class="item-title">Bolinhos de Bacalhau</h4>
+                                <span class="item-price">R$ 55,00</span>
+                            </div>
+                            <p class="item-description">Tradicionais bolinhos de bacalhau servidos com molho tártaro.</p>
+                            <div class="quantity-control">
+                                <button class="quantity-btn minus">-</button>
+                                <input type="number" class="quantity-input" value="0" min="0" data-item="bolinho-bacalhau" data-price="55" data-category="entrada">
+                                <button class="quantity-btn plus">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-category">
+                    <h3 class="category-title">Pratos Principais</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <div class="item-header">
+                                <h4 class="item-title">Risoto de Cogumelos</h4>
+                                <span class="item-price">R$ 85,00</span>
+                            </div>
+                            <p class="item-description">Arroz arbóreo com mix de cogumelos frescos e parmesão.</p>
+                            <div class="quantity-control">
+                                <button class="quantity-btn minus">-</button>
+                                <input type="number" class="quantity-input" value="0" min="0" data-item="risoto-cogumelos" data-price="85" data-category="principal">
+                                <button class="quantity-btn plus">+</button>
+                            </div>
+                        </div>
+                        
+                        <div class="menu-item">
+                            <div class="item-header">
+                                <h4 class="item-title">Filé Mignon ao Molho Madeira</h4>
+                                <span class="item-price">R$ 110,00</span>
+                            </div>
+                            <p class="item-description">Medalhões de filé mignon ao molho madeira com batatas.</p>
+                            <div class="quantity-control">
+                                <button class="quantity-btn minus">-</button>
+                                <input type="number" class="quantity-input" value="0" min="0" data-item="file-mignon" data-price="110" data-category="principal">
+                                <button class="quantity-btn plus">+</button>
+                            </div>
+                        </div>
+                        
+                        <div class="menu-item">
+                            <div class="item-header">
+                                <h4 class="item-title">Salmão Grelhado</h4>
+                                <span class="item-price">R$ 95,00</span>
+                            </div>
+                            <p class="item-description">Filé de salmão grelhado com aspargos e purê de batata.</p>
+                            <div class="quantity-control">
+                                <button class="quantity-btn minus">-</button>
+                                <input type="number" class="quantity-input" value="0" min="0" data-item="salmao-grelhado" data-price="95" data-category="principal">
+                                <button class="quantity-btn plus">+</button>
+                            </div>
+                        </div>
+                        
+                        <div class="menu-item">
+                            <div class="item-header">
+                                <h4 class="item-title">Ratatouille Vegano</h4>
+                                <span class="item-price">R$ 75,00</span>
+                            </div>
+                            <p class="item-description">Mix de legumes assados ao estilo provençal.</p>
+                            <div class="quantity-control">
+                                <button class="quantity-btn minus">-</button>
+                                <input type="number" class="quantity-input" value="0" min="0" data-item="ratatouille" data-price="75" data-category="principal">
+                                <button class="quantity-btn plus">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-category">
+                    <h3 class="category-title">Sobremesas</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <div class="item-header">
+                                <h4 class="item-title">Petit Gateau</h4>
+                                <span class="item-price">R$ 35,00</span>
+                            </div>
+                            <p class="item-description">Bolo de chocolate com centro derretido e sorvete de creme.</p>
+                            <div class="quantity-control">
+                                <button class="quantity-btn minus">-</button>
+                                <input type="number" class="quantity-input" value="0" min="0" data-item="petit-gateau" data-price="35" data-category="sobremesa">
+                                <button class="quantity-btn plus">+</button>
+                            </div>
+                        </div>
+                        
+                        <div class="menu-item">
+                            <div class="item-header">
+                                <h4 class="item-title">Cheesecake de Frutas Vermelhas</h4>
+                                <span class="item-price">R$ 30,00</span>
+                            </div>
+                            <p class="item-description">Torta de cream cheese com cobertura de frutas vermelhas.</p>
+                            <div class="quantity-control">
+                                <button class="quantity-btn minus">-</button>
+                                <input type="number" class="quantity-input" value="0" min="0" data-item="cheesecake" data-price="30" data-category="sobremesa">
+                                <button class="quantity-btn plus">+</button>
+                            </div>
+                        </div>
+                        
+                        <div class="menu-item">
+                            <div class="item-header">
+                                <h4 class="item-title">Tiramisù</h4>
+                                <span class="item-price">R$ 32,00</span>
+                            </div>
+                            <p class="item-description">Clássica sobremesa italiana com café, queijo mascarpone e cacau.</p>
+                            <div class="quantity-control">
+                                <button class="quantity-btn minus">-</button>
+                                <input type="number" class="quantity-input" value="0" min="0" data-item="tiramisu" data-price="32" data-category="sobremesa">
+                                <button class="quantity-btn plus">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-category">
+                    <h3 class="category-title">Bebidas</h3>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <div class="item-header">
+                                <h4 class="item-title">Água Mineral (garrafa 500ml)</h4>
+                                <span class="item-price">R$ 5,00</span>
+                            </div>
+                            <p class="item-description">Água mineral sem gás em garrafa individual.</p>
+                            <div class="quantity-control">
+                                <button class="quantity-btn minus">-</button>
+                                <input type="number" class="quantity-input" value="0" min="0" data-item="agua" data-price="5" data-category="bebida">
+                                <button class="quantity-btn plus">+</button>
+                            </div>
+                        </div>
+                        
+                        <div class="menu-item">
+                            <div class="item-header">
+                                <h4 class="item-title">Refrigerante (lata 350ml)</h4>
+                                <span class="item-price">R$ 7,00</span>
+                            </div>
+                            <p class="item-description">Variedades: Coca-Cola, Guaraná, Sprite ou Soda.</p>
+                            <div class="quantity-control">
+                                <button class="quantity-btn minus">-</button>
+                                <input type="number" class="quantity-input" value="0" min="0" data-item="refrigerante" data-price="7" data-category="bebida">
+                                <button class="quantity-btn plus">+</button>
+                            </div>
+                        </div>
+                        
+                        <div class="menu-item">
+                            <div class="item-header">
+                                <h4 class="item-title">Suco Natural (jarra 1L)</h4>
+                                <span class="item-price">R$ 25,00</span>
+                            </div>
+                            <p class="item-description">Opções: laranja, limão, abacaxi ou maracujá.</p>
+                            <div class="quantity-control">
+                                <button class="quantity-btn minus">-</button>
+                                <input type="number" class="quantity-input" value="0" min="0" data-item="suco" data-price="25" data-category="bebida">
+                                <button class="quantity-btn plus">+</button>
+                            </div>
+                        </div>
+                        
+                        <div class="menu-item">
+                            <div class="item-header">
+                                <h4 class="item-title">Café Premium (garrafa térmica 1L)</h4>
+                                <span class="item-price">R$ 30,00</span>
+                            </div>
+                            <p class="item-description">Café gourmet servido em garrafa térmica com açúcar e adoçante à parte.</p>
+                            <div class="quantity-control">
+                                <button class="quantity-btn minus">-</button>
+                                <input type="number" class="quantity-input" value="0" min="0" data-item="cafe" data-price="30" data-category="bebida">
+                                <button class="quantity-btn plus">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="selected-items">
+                    <h3 class="selected-items-title">Itens Selecionados</h3>
+                    <div class="selected-items-list" id="selectedItemsList">
+                        <p>Nenhum item selecionado ainda.</p>
+                    </div>
+                    <div class="total-section">
+                        <span>Total:</span>
+                        <span id="totalPrice">R$ 0,00</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn cancel-btn" id="cancelButton">Cancelar</button>
+                <button class="btn" id="confirmButton">Confirmar Seleção</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="cartModal" class="cart-modal">
+        <div class="cart-modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Meu Carrinho</h2>
+                <button class="close-button" id="closeCartButton">&times;</button>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <p>Seu carrinho está vazio.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn cancel-btn" id="clearCartButton">Limpar Carrinho</button>
+                <button class="btn" id="checkoutButton">Finalizar Pedido</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const modal = document.getElementById('menuModal');
+            const cartModal = document.getElementById('cartModal');
+            const viewMenuButtons = document.querySelectorAll('.view-menu');
+            const closeButton = document.querySelector('.close-button');
+            const cancelButton = document.getElementById('cancelButton');
+            const confirmButton = document.getElementById('confirmButton');
+            const successMessage = document.getElementById('successMessage');
+            const cartButton = document.getElementById('cart-button');
+            const closeCartButton = document.getElementById('closeCartButton');
+            const clearCartButton = document.getElementById('clearCartButton');
+            const checkoutButton = document.getElementById('checkoutButton');
+            
+            // State variables
+            let currentEventId = '';
+            let currentEventTitle = '';
+            let cart = {};
+            let totalCartItems = 0;
+            
+            // Initialize cart from localStorage if available
+            if (localStorage.getItem('menuCart')) {
+                try {
+                    cart = JSON.parse(localStorage.getItem('menuCart'));
+                    updateCartCount();
+                } catch (e) {
+                    console.error('Error parsing cart from localStorage', e);
+                    cart = {};
+                }
+            }
+            
+            // Open menu modal when clicking "Ver Cardápio"
+            viewMenuButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    currentEventId = this.getAttribute('data-event');
+                    currentEventTitle = this.parentElement.querySelector('.event-title').textContent;
+                    document.querySelector('.modal-title').textContent = `Cardápio: ${currentEventTitle}`;
+                    
+                    // Reset the form
+                    resetQuantities();
+                    
+                    // If event already in cart, pre-fill quantities
+                    if (cart[currentEventId]) {
+                        const items = cart[currentEventId].items;
+                        items.forEach(item => {
+                            const input = document.querySelector(`.quantity-input[data-item="${item.id}"]`);
+                            if (input) {
+                                input.value = item.quantity;
+                            }
+                        });
+                    }
+                    
+                    // Show the modal
+                    modal.style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                    updateSelectedItemsList();
+                });
+            });
+            
+            // Close menu modal
+            function closeMenuModal() {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+                successMessage.style.display = 'none';
+            }
+            
+            closeButton.addEventListener('click', closeMenuModal);
+            cancelButton.addEventListener('click', closeMenuModal);
+            
+            // Close menu modal if clicking outside
+            window.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    closeMenuModal();
+                }
+                if (event.target === cartModal) {
+                    closeCartModal();
+                }
+            });
+            
+            // Handle quantity buttons
+            const plusButtons = document.querySelectorAll('.plus');
+            const minusButtons = document.querySelectorAll('.minus');
+            
+            plusButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const input = this.parentElement.querySelector('.quantity-input');
+                    input.value = parseInt(input.value) + 1;
+                    updateSelectedItemsList();
+                });
+            });
+            
+            minusButtons.forEach(button => {
+    button.addEventListener('click', function() {
+        const input = this.parentElement.querySelector('.quantity-input');
+        if (parseInt(input.value) > 0) {
+            input.value = parseInt(input.value) - 1;
+            updateSelectedItemsList();
+        }
+    });
+});
+
+// Update selected items list and total
+function updateSelectedItemsList() {
+    const selectedItemsList = document.getElementById('selectedItemsList');
+    const totalPrice = document.getElementById('totalPrice');
+    const inputs = document.querySelectorAll('.quantity-input');
+    let total = 0;
+    let selectedItems = [];
+    
+    inputs.forEach(input => {
+        const quantity = parseInt(input.value);
+        if (quantity > 0) {
+            const itemName = input.parentElement.parentElement.querySelector('.item-title').textContent;
+            const price = parseFloat(input.getAttribute('data-price'));
+            const itemTotal = price * quantity;
+            total += itemTotal;
+            
+            selectedItems.push({
+                name: itemName,
+                quantity: quantity,
+                price: price,
+                total: itemTotal
+            });
+        }
+    });
+    
+    if (selectedItems.length > 0) {
+        let html = '';
+        selectedItems.forEach(item => {
+            html += `<div class="selected-item">
+                <span>${item.quantity}x ${item.name}</span>
+                <span>R$ ${item.total.toFixed(2)}</span>
+            </div>`;
+        });
+        selectedItemsList.innerHTML = html;
+    } else {
+        selectedItemsList.innerHTML = '<p>Nenhum item selecionado ainda.</p>';
+    }
+    
+    totalPrice.textContent = `R$ ${total.toFixed(2)}`;
+}
+
+// Confirm selection
+confirmButton.addEventListener('click', function() {
+    const selectedItems = [];
+    const inputs = document.querySelectorAll('.quantity-input');
+    
+    inputs.forEach(input => {
+        const quantity = parseInt(input.value);
+        if (quantity > 0) {
+            selectedItems.push({
+                id: input.getAttribute('data-item'),
+                name: input.parentElement.parentElement.querySelector('.item-title').textContent,
+                price: parseFloat(input.getAttribute('data-price')),
+                category: input.getAttribute('data-category'),
+                quantity: quantity
+            });
+        }
+    });
+    
+    if (selectedItems.length > 0) {
+        // Add to cart
+        cart[currentEventId] = {
+            title: currentEventTitle,
+            items: selectedItems
+        };
+        
+        // Save to localStorage
+        localStorage.setItem('menuCart', JSON.stringify(cart));
+        
+        // Update cart count
+        updateCartCount();
+        
+        // Show success message
+        successMessage.style.display = 'block';
+        
+        // Reset form after a delay
+        setTimeout(() => {
+            resetQuantities();
+            closeMenuModal();
+        }, 2000);
+    }
+});
+
+// Reset quantities
+function resetQuantities() {
+    const inputs = document.querySelectorAll('.quantity-input');
+    inputs.forEach(input => {
+        input.value = 0;
+    });
+    updateSelectedItemsList();
+}
+
+// Update cart count
+function updateCartCount() {
+    totalCartItems = 0;
+    Object.keys(cart).forEach(eventId => {
+        cart[eventId].items.forEach(item => {
+            totalCartItems += item.quantity;
+        });
+    });
+    cartButton.textContent = `Meu Carrinho (${totalCartItems})`;
+}
+
+// Open cart modal
+cartButton.addEventListener('click', function() {
+    updateCartModal();
+    cartModal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+});
+
+// Close cart modal
+function closeCartModal() {
+    cartModal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+closeCartButton.addEventListener('click', closeCartModal);
+
+// Update cart modal content
+function updateCartModal() {
+    const cartItems = document.getElementById('cartItems');
+    
+    if (Object.keys(cart).length === 0) {
+        cartItems.innerHTML = '<p>Seu carrinho está vazio.</p>';
+        return;
+    }
+    
+    let html = '';
+    let cartTotal = 0;
+    
+    Object.keys(cart).forEach(eventId => {
+        const event = cart[eventId];
+        let eventTotal = 0;
+        
+        html += `<div class="cart-event">
+            <h3 class="cart-event-title">${event.title}</h3>
+            <div class="selected-items-list">`;
+        
+        event.items.forEach(item => {
+            const itemTotal = item.price * item.quantity;
+            eventTotal += itemTotal;
+            html += `<div class="selected-item">
+                <span>${item.quantity}x ${item.name}</span>
+                <span>R$ ${itemTotal.toFixed(2)}</span>
+            </div>`;
+        });
+        
+        html += `</div>
+            <div class="total-section">
+                <span>Subtotal do evento:</span>
+                <span>R$ ${eventTotal.toFixed(2)}</span>
+            </div>
+        </div>`;
+        
+        cartTotal += eventTotal;
+    });
+    
+    html += `<div class="total-section" style="margin-top: 1rem; font-size: 1.2rem;">
+        <span>Total do carrinho:</span>
+        <span>R$ ${cartTotal.toFixed(2)}</span>
+    </div>`;
+    
+    cartItems.innerHTML = html;
+}
+
+// Clear cart
+clearCartButton.addEventListener('click', function() {
+    cart = {};
+    localStorage.removeItem('menuCart');
+    updateCartCount();
+    updateCartModal();
+});
+
+// Checkout
+checkoutButton.addEventListener('click', function() {
+    alert('Pedido finalizado com sucesso! Em breve você receberá um email com a confirmação.');
+    cart = {};
+    localStorage.removeItem('menuCart');
+    updateCartCount();
+    closeCartModal();
+});
+        });
+    
