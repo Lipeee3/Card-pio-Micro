@@ -188,6 +188,23 @@
         </div>
       </section>
       <script>
+// Função para incrementar a quantidade
+  function incrementQuantity(index) {
+  const input = document.querySelector(`.item-quantity[data-index="${index}"]`);
+  let value = parseInt(input.value) || 0;
+  input.value = value + 1;
+  updateMenuTotal(); // Atualiza o total do menu ao alterar a quantidade
+}
+
+// Função para decrementar a quantidade
+function decrementQuantity(index) {
+  const input = document.querySelector(`.item-quantity[data-index="${index}"]`);
+  let value = parseInt(input.value) || 0;
+  if (value > 0) {
+    input.value = value - 1;
+    updateMenuTotal(); // Atualiza o total do menu ao alterar a quantidade
+  }
+}
         function showEventDetails(img) {
           const eventModal = document.createElement("div");
 
