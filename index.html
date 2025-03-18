@@ -1428,50 +1428,7 @@ Sair
   </div>
 </div>
 `;
-        } else if (eventTitle.includes("Almoço")) {
-          menuModal.innerHTML = `
-          <div class="bg-white rounded-lg p-8 max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto">
 
-
-  
-  <div class="space-y-6">
-    <div>
-      <h3 class="text-lg font-semibold mb-3">Opções para Almoço</h3>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="p-4 border rounded-lg">
-          <div class="flex justify-between items-start mb-2">
-            <span class="font-medium">Almoço Buffet Standard</span>
-            <span class="text-primary">R$ 134 por Pessoa</span>
-          </div>
-          <ul class="text-sm text-gray-600 space-y-1">
-            <li>• Fixos</li>
-            <li>• Sucos</li>
-            <li>• Saladas</li>
-            <li>• Pratos Principais</li>
-            <li>• Acompanhamentos</li>
-            <li>• Sobremesas</li>
-          </ul>
-          <button onclick="addToCart('${eventTitle}', 'Coffee Break Básico', 44)" class="mt-3 w-full bg-primary text-white py-2 px-4 rounded-button hover:bg-opacity-90 transition-colors">Adicionar ao Carrinho</button>
-        </div>
-        <div class="p-4 border rounded-lg">
-          <div class="flex justify-between items-start mb-2">
-            <span class="font-medium">Coffee Break Premium</span>
-            <span class="text-primary">R$ 116 por Pessoa</span>
-          </div>
-          <ul class="text-sm text-gray-600 space-y-1">
-            <li>• Bebidas</li>
-            <li>• Snacks</li>
-            <li>• Mini-Sanduíches</li>
-            <li>• Bolos</li>
-            <li>• Sobremesas</li>
-          </ul>
-          <button onclick="addToCart('${eventTitle}', 'Coffee Break Premium', 116)" class="mt-3 w-full bg-primary text-white py-2 px-4 rounded-button hover:bg-opacity-90 transition-colors">Adicionar ao Carrinho</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
         } else if (eventTitle.includes("Casamento")) {
           menuModal.innerHTML = `
           <div class="bg-white rounded-lg p-8 max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto">
